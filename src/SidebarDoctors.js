@@ -8,6 +8,7 @@ import {
   Typography,
   Box,
 } from "@mui/material";
+import { Link } from "react-router-dom";
 
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import EventNoteIcon from "@mui/icons-material/EventNote";
@@ -17,11 +18,11 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 const SidebarDoctors = () => {
   const menuItems = [
-    { text: "Dashboard", icon: <DashboardIcon /> },
-    { text: "My Appointments", icon: <EventNoteIcon /> },
-    { text: "My Patients", icon: <PeopleIcon /> },
-    { text: "Notifications", icon: <NotificationsIcon /> },
-    { text: "My Profile", icon: <AccountCircleIcon /> },
+    { text: "Dashboard", path: "/DashboardDoctors", icon: <DashboardIcon /> },
+    { text: "My Appointments", path: "/MyAppointments", icon: <EventNoteIcon /> },
+    { text: "My Patients", path: "/MyPatients", icon: <PeopleIcon /> },
+    { text: "Notifications", path: "/Notifications", icon: <NotificationsIcon /> },
+    { text: "My Profile", path: "/MyProfile", icon: <AccountCircleIcon /> },
   ];
 
   return (
@@ -34,21 +35,31 @@ const SidebarDoctors = () => {
         "& .MuiDrawer-paper": {
           width: 220,
           boxSizing: "border-box",
-          backgroundColor: "#0d47a1",
+          backgroundColor: "rgb(155, 8, 155)",
           color: "#fff",
         },
       }}
     >
       <Box sx={{ padding: 2 }}>
-        <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+        <Typography variant="h6" sx={{ fontWeight: "bold", color: "#fff" }}>
           Doctor Panel
         </Typography>
       </Box>
       <List>
         {menuItems.map((item, index) => (
-          <ListItem button key={index} sx={{ "&:hover": { backgroundColor: "#1565c0" } }}>
+          <ListItem
+            button
+            key={index}
+            component={Link}
+            to={item.path}
+            sx={{
+              "&:hover": { backgroundColor: "rgb(99, 3, 99)" },
+              textDecoration: "none",
+              color: "#fff", // This sets the text color of the entire ListItem
+            }}
+          >
             <ListItemIcon sx={{ color: "#fff" }}>{item.icon}</ListItemIcon>
-            <ListItemText primary={item.text} />
+            <ListItemText primary={item.text} sx={{ color: "#fff" }} />
           </ListItem>
         ))}
       </List>
@@ -57,3 +68,6 @@ const SidebarDoctors = () => {
 };
 
 export default SidebarDoctors;
+
+
+
