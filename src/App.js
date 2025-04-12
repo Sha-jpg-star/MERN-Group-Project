@@ -8,6 +8,7 @@ import DashboardDoctors from "./DashboardDoctors";
 import MyAppointments from "./MyAppointments";
 import MyPatients from "./MyPatients";
 import Notifications from "./Notifications";
+import MyProfile from "./MyProfile";
 
 
 
@@ -26,6 +27,7 @@ function App() {
         <Route path="/MyAppointments" element={<MyAppointments />} />
         <Route path="/MyPatients" element={<MyPatients />} />
         <Route path="/Notifications" element={<Notifications />} />
+        <Route path="/MyProfile" element={<MyProfile />} />
 
   
       </Routes>
