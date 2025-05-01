@@ -13,14 +13,18 @@
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "axios": "^1.9.0",
+    "cors": "^2.8.5",
     "date-fns": "^3.2.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "mongoose": "^8.14.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "react-router-dom": "^7.5.0",
-    "react-scripts": "5.0.1",
+    "react-scripts": "^5.0.1",
     "recharts": "^2.15.2",
     "web-vitals": "^2.1.4"
-  
   },
   "scripts": {
     "start": "react-scripts start",
@@ -47,6 +51,25 @@
     ]
   },
   "devDependencies": {
-    "gh-pages": "^6.3.0"
-  }
+    "@babel/core": "^7.27.1",
+    "@babel/preset-env": "^7.27.1",
+    "@babel/preset-react": "^7.27.1",
+    "babel-loader": "^10.0.0",
+    "gh-pages": "^6.3.0",
+    "webpack": "^5.99.7",
+    "webpack-cli": "^6.0.1"
+  },
+  "description": "<<<<<<< HEAD",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sha-jpg-star/ReactFrontEnd.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Sha-jpg-star/ReactFrontEnd/issues"
+  },
+  "homepage": "."
 }

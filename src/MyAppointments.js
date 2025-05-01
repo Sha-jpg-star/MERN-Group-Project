@@ -85,9 +85,10 @@ const MyAppointments = () => {
                   }}
                 >
                   <ListItemText
-                    primary={`${appt.patient}`}
-                    secondary={`Time: ${appt.time}`}
-                  />
+  primary={`${appt.patient}`}
+  secondary={`Time: ${appt.time}`}
+/>
+
                   <Chip label={appt.status} color={statusColors[appt.status]} />
                 </ListItem>
               ))

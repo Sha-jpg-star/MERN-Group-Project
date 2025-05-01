@@ -13,6 +13,7 @@ import MyProfile from "./MyProfile";
 
 
 
+
 function App() {
   return (
     <Router>
@@ -26,6 +27,7 @@ function App() {
         <Route path="/MyPatients" element={<MyPatients />} />
         <Route path="/Notifications" element={<Notifications />} />
         <Route path="/MyProfile" element={<MyProfile />} />
+      
 
   
       </Routes>
