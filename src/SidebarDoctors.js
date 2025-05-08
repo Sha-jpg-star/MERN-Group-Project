@@ -7,6 +7,7 @@ import {
   ListItemText,
   Typography,
   Box,
+  Button,
 } from "@mui/material";
 import { Link } from "react-router-dom";
 
@@ -19,9 +20,17 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 const SidebarDoctors = () => {
   const menuItems = [
     { text: "Dashboard", path: "/DashboardDoctors", icon: <DashboardIcon /> },
-    { text: "My Appointments", path: "/MyAppointments", icon: <EventNoteIcon /> },
+    {
+      text: "My Appointments",
+      path: "/MyAppointments",
+      icon: <EventNoteIcon />,
+    },
     { text: "My Patients", path: "/MyPatients", icon: <PeopleIcon /> },
-    { text: "Notifications", path: "/Notifications", icon: <NotificationsIcon /> },
+    {
+      text: "Notifications",
+      path: "/Notifications",
+      icon: <NotificationsIcon />,
+    },
     { text: "My Profile", path: "/MyProfile", icon: <AccountCircleIcon /> },
   ];
 
@@ -41,11 +50,11 @@ const SidebarDoctors = () => {
       }}
     >
       <Box sx={{ padding: 2 }}>
-        <Typography variant="h6" sx={{ fontWeight: "bold", color: "#fff" }}>
+        <Typography variant="h5" sx={{ fontWeight: "bold", color: "#fff" }}>
           Doctor Panel
         </Typography>
       </Box>
-      <List>
+      <List sx={{ marginBottom: 30 }}>
         {menuItems.map((item, index) => (
           <ListItem
             button
@@ -63,11 +72,17 @@ const SidebarDoctors = () => {
           </ListItem>
         ))}
       </List>
+
+      <Button
+        variant="contained"
+        component={Link}
+        to="/Landingpage"
+        sx={{ mr: 4, ml: 4, backgroundColor: "blue" }}
+      >
+        Back to Home
+      </Button>
     </Drawer>
   );
 };
 
 export default SidebarDoctors;
-
-
-

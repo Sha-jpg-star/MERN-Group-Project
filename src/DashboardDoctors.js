@@ -36,8 +36,15 @@ const DashboardDoctors = () => {
     <Box sx={{ display: "flex" }}>
       <SidebarDoctors />
 
-      <Box sx={{ flexGrow: 1, p: 3, backgroundColor: "#f1f9ff", minHeight: "100vh" }}>
-        <Typography variant="h4" sx={{ fontWeight: "bold", mb: 3 }}>
+      <Box
+        component="main"
+        sx={{ flexGrow: 1, p: 3, backgroundColor: "rgb(218, 251, 253)" }}
+      >
+        <Typography
+          variant="h4"
+          gutterBottom
+          sx={{ fontWeight: "bold", marginBottom: 3, color: "rgb(25, 0, 102)" }}
+        >
           Doctor Dashboard
         </Typography>
 
@@ -61,7 +68,10 @@ const DashboardDoctors = () => {
               <List>
                 {appointmentsToday.map((appt, index) => (
                   <ListItem key={index}>
-                    <ListItemText primary={appt.patient} secondary={appt.time} />
+                    <ListItemText
+                      primary={appt.patient}
+                      secondary={appt.time}
+                    />
                   </ListItem>
                 ))}
               </List>
