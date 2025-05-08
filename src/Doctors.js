@@ -34,9 +34,10 @@ function Doctors() {
   const [editId, setEditId] = useState(null);
 
   useEffect(() => {
-    axios.get("http://localhost:5000/api/doctors")
-      .then(res => setDoctorList(res.data))
-      .catch(err => console.error("Error fetching doctors:", err));
+    axios
+      .get("http://localhost:5000/api/doctors")
+      .then((res) => setDoctorList(res.data))
+      .catch((err) => console.error("Error fetching doctors:", err));
   }, []);
 
   const handleAddDoctor = () => {
@@ -60,12 +61,13 @@ function Doctors() {
         EmergencyContact,
       };
 
-      axios.post("http://localhost:5000/api/doctors", newDoctor)
-        .then(res => {
+      axios
+        .post("http://localhost:5000/api/doctors", newDoctor)
+        .then((res) => {
           setDoctorList([...doctorList, res.data]);
           resetFields();
         })
-        .catch(err => console.error("Error adding doctor:", err));
+        .catch((err) => console.error("Error adding doctor:", err));
     }
   };
 
@@ -82,24 +84,26 @@ function Doctors() {
       EmergencyContact,
     };
 
-    axios.put(`http://localhost:5000/api/doctors/${editId}`, updatedDoctor)
-      .then(res => {
-        const updatedList = doctorList.map(doc =>
+    axios
+      .put(`http://localhost:5000/api/doctors/${editId}`, updatedDoctor)
+      .then((res) => {
+        const updatedList = doctorList.map((doc) =>
           doc._id === editId ? res.data : doc
         );
         setDoctorList(updatedList);
         resetFields();
         setEditId(null);
       })
-      .catch(err => console.error("Error updating doctor:", err));
+      .catch((err) => console.error("Error updating doctor:", err));
   };
 
   const handleDeleteDoctor = (id) => {
-    axios.delete(`http://localhost:5000/api/doctors/${id}`)
+    axios
+      .delete(`http://localhost:5000/api/doctors/${id}`)
       .then(() => {
-        setDoctorList(doctorList.filter(doc => doc._id !== id));
+        setDoctorList(doctorList.filter((doc) => doc._id !== id));
       })
-      .catch(err => console.error("Error deleting doctor:", err));
+      .catch((err) => console.error("Error deleting doctor:", err));
   };
 
   const handleEdit = (doctor) => {
@@ -124,7 +128,9 @@ function Doctors() {
   return (
     <div style={{ display: "flex" }}>
       <Sidebar />
-      <Container sx={{ flex: 1, paddingTop: 4 }}>
+      <Container
+        sx={{ flex: 1, paddingTop: 4, backgroundColor: "rgb(218, 251, 253)" }}
+      >
         <Typography variant="h4" gutterBottom>
           Doctors Management
         </Typography>

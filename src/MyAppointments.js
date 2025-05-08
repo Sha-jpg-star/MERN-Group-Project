@@ -18,10 +18,30 @@ const MyAppointments = () => {
   const [filter, setFilter] = useState("All");
 
   const appointments = [
-    { id: 1, patient: "Nimal Perera", time: "2025-04-11 10:30", status: "Pending" },
-    { id: 2, patient: "Kasuni Silva", time: "2025-04-11 11:00", status: "Confirmed" },
-    { id: 3, patient: "Sunil Fernando", time: "2025-04-12 09:00", status: "Cancelled" },
-    { id: 4, patient: "Ruwan Jayasena", time: "2025-04-13 12:00", status: "Confirmed" },
+    {
+      id: 1,
+      patient: "Nimal Perera",
+      time: "2025-04-11 10:30",
+      status: "Pending",
+    },
+    {
+      id: 2,
+      patient: "Kasuni Silva",
+      time: "2025-04-11 11:00",
+      status: "Confirmed",
+    },
+    {
+      id: 3,
+      patient: "Sunil Fernando",
+      time: "2025-04-12 09:00",
+      status: "Cancelled",
+    },
+    {
+      id: 4,
+      patient: "Ruwan Jayasena",
+      time: "2025-04-13 12:00",
+      status: "Confirmed",
+    },
   ];
 
   const statusColors = {
@@ -42,8 +62,19 @@ const MyAppointments = () => {
       <SidebarDoctors />
 
       {/* Main Content */}
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-        <Typography variant="h4" gutterBottom sx={{ fontWeight: "bold", color: "rgb(25, 0, 102)" }}>
+      <Box
+        component="main"
+        sx={{ flexGrow: 1, p: 3, backgroundColor: "rgb(218, 251, 253)" }}
+      >
+        <Typography
+          variant="h4"
+          gutterBottom
+          sx={{
+            fontWeight: "bold",
+            color: "rgb(25, 0, 102)",
+            marginBottom: 3,
+          }}
+        >
           My Appointments
         </Typography>
 
@@ -85,9 +116,9 @@ const MyAppointments = () => {
                   }}
                 >
                   <ListItemText
-  primary={`${appt.patient}`}
-  secondary={`Time: ${appt.time}`}
-/>
+                    primary={`${appt.patient}`}
+                    secondary={`Time: ${appt.time}`}
+                  />
 
                   <Chip label={appt.status} color={statusColors[appt.status]} />
                 </ListItem>
