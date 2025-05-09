@@ -9,12 +9,14 @@ import MyAppointments from "./MyAppointments";
 import MyPatients from "./MyPatients";
 import Notifications from "./Notifications";
 import MyProfile from "./MyProfile";
+import Appointment from "./Appointment";
+import Patients from "./Patients";
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/landingpage" element={<Landingpage />} />
+        <Route path="/" element={<Landingpage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/Dashboard" element={<Dashboard />} />
         <Route path="/Doctors" element={<Doctors />} />
@@ -23,6 +25,8 @@ function App() {
         <Route path="/MyPatients" element={<MyPatients />} />
         <Route path="/Notifications" element={<Notifications />} />
         <Route path="/MyProfile" element={<MyProfile />} />
+        <Route path="/Appointment" element={<Appointment/>} />
+        <Route path="/Pateints" element={<Patients/>} />
       </Routes>
     </Router>
   );
