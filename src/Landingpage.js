@@ -69,7 +69,7 @@ const MedCareUI = () => {
               variant="outlined"
               color="primary"
               component={Link}
-              to="/DashboardDoctors"
+              to="/loginDoctors"
             >
               Check Appointment
             </Button>
