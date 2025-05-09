@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Landingpage from "./Landingpage"; //  Make sure the file exists in src folder
+import Landingpage from "./Landingpage";
 import Login from "./login";
 import Dashboard from "./Dashboard";
 import Doctors from "./Doctors";
@@ -10,6 +10,7 @@ import MyPatients from "./MyPatients";
 import Notifications from "./Notifications";
 import MyProfile from "./MyProfile";
 import DashboardPatients from "./DashboardPatients";
+import LoginPatients from "./loginpatients"; // ✅ FIX: Correct casing
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         <Route path="/Notifications" element={<Notifications />} />
         <Route path="/MyProfile" element={<MyProfile />} />
         <Route path="/DashboardPatients" element={<DashboardPatients />} />
+        <Route path="/loginpatients" element={<LoginPatients />} /> {/* ✅ FIXED */}
       </Routes>
     </Router>
   );
