@@ -9,6 +9,7 @@ import MyAppointments from "./MyAppointments";
 import MyPatients from "./MyPatients";
 import Notifications from "./Notifications";
 import MyProfile from "./MyProfile";
+import DashboardPatients from "./DashboardPatients";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/MyPatients" element={<MyPatients />} />
         <Route path="/Notifications" element={<Notifications />} />
         <Route path="/MyProfile" element={<MyProfile />} />
+        <Route path="/DashboardPatients" element={<DashboardPatients />} />
       </Routes>
     </Router>
   );

@@ -60,7 +60,7 @@ const MedCareUI = () => {
             <Button
               variant="contained"
               component={Link}
-              to="/Login"
+              to="/DashboardPatients"
               sx={{ mr: 2, backgroundColor: "blue" }}
             >
               Make An Appointment
