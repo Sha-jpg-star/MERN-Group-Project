@@ -63,11 +63,19 @@ const Sidebar = () => {
           { text: "Dashboard", path: "/Dashboard", icon: <DashboardIcon /> },
           { text: "Doctors", path: "/Doctors", icon: <PeopleIcon /> },
           { text: "Patients", path: "/Patients", icon: <PersonIcon /> },
-          { text: "Pharmacy", path: "/Pharmacy", icon: <LocalPharmacyIcon /> },
-          { text: "Nurse", path: "/Nurse", icon: <MedicalServicesIcon /> },
+          {
+            text: "Pharmacy",
+            path: "/AdminPharmacyDashboard",
+            icon: <LocalPharmacyIcon />,
+          },
+          {
+            text: "Nurse",
+            path: "/AdminNurseDashboard",
+            icon: <MedicalServicesIcon />,
+          },
           {
             text: "Lab Reports",
-            path: "/LabReports",
+            path: "/AdminLabReports",
             icon: <DescriptionIcon />,
           },
           {
@@ -75,9 +83,9 @@ const Sidebar = () => {
             path: "/Appointment",
             icon: <EventAvailableIcon />,
           },
-          { text: "Messages", path: "/Messages", icon: <MessageIcon /> },
-          { text: "Settings", path: "/Settings", icon: <SettingsIcon /> },
-          { text: "Logout", path: "/Logout", icon: <ExitToAppIcon /> },
+          { text: "Messages", path: "/AdminMessages", icon: <MessageIcon /> },
+          { text: "Settings", path: "/AdminSetting", icon: <SettingsIcon /> },
+          { text: "Logout", path: "/AdminLogout", icon: <ExitToAppIcon /> },
         ].map((item, index) => (
           <ListItem
             button
