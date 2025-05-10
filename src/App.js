@@ -10,7 +10,7 @@ import MyPatients from "./MyPatients";
 import Notifications from "./Notifications";
 import MyProfile from "./MyProfile";
 import DashboardPatients from "./DashboardPatients";
-import LoginPatients from "./loginpatients"; // ✅ FIX: Correct casing
+import LoginPatients from "./loginpatients"; 
 import LoginDoctors from "./loginDoctors";  
 
 function App() {
