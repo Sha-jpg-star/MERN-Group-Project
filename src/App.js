@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Landingpage from "./Landingpage"; //  Make sure the file exists in src folder
+import Landingpage from "./Landingpage";
 import Login from "./login";
 import Dashboard from "./Dashboard";
 import Doctors from "./Doctors";
@@ -11,6 +11,10 @@ import Notifications from "./Notifications";
 import MyProfile from "./MyProfile";
 import Appointment from "./Appointment";
 import Patients from "./Patients";
+import DashboardPatients from "./DashboardPatients";
+import LoginPatients from "./loginpatients"; 
+import LoginDoctors from "./loginDoctors";  
+
 
 function App() {
   return (
@@ -27,6 +31,10 @@ function App() {
         <Route path="/MyProfile" element={<MyProfile />} />
         <Route path="/Appointment" element={<Appointment/>} />
         <Route path="/Pateints" element={<Patients/>} />
+        <Route path="/DashboardPatients" element={<DashboardPatients />} />
+        <Route path="/loginpatients" element={<LoginPatients />} /> 
+        <Route path="/loginDoctors" element={<LoginDoctors />} />
+
       </Routes>
     </Router>
   );

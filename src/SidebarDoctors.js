@@ -76,7 +76,7 @@ const SidebarDoctors = () => {
       <Button
         variant="contained"
         component={Link}
-        to="/Landingpage"
+        to="/"
         sx={{ mr: 4, ml: 4, backgroundColor: "blue" }}
       >
         Back to Home
