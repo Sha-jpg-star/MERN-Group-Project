@@ -14,6 +14,12 @@ import Patients from "./Patients";
 import DashboardPatients from "./DashboardPatients";
 import LoginPatients from "./loginpatients"; 
 import LoginDoctors from "./loginDoctors";  
+import AdminLogout from "./AdminLogout";
+import AdminSetting from "./AdminSetting";
+import AdminNurseDashboard from "./AdminNurseDashboard";
+import AdminPharmacyDashboard from "./AdminPharmacyDashboard";
+import AdminLabReports from "./AdminLapReports";
+import AdminMessages from "./AdminMessages";
 
 
 function App() {
@@ -32,9 +38,14 @@ function App() {
         <Route path="/Appointment" element={<Appointment/>} />
         <Route path="/Pateints" element={<Patients/>} />
         <Route path="/DashboardPatients" element={<DashboardPatients />} />
-        <Route path="/loginpatients" element={<LoginPatients />} /> 
+        <Route path="/loginpatients" element={<LoginPatients />} />
         <Route path="/loginDoctors" element={<LoginDoctors />} />
-
+        <Route path="/AdminLogout" element={<AdminLogout />} />
+        <Route path="/AdminSetting" element={<AdminSetting />} />
+        <Route path="/AdminNurseDashboard" element={<AdminNurseDashboard />} />
+        <Route path="/AdminPharmacyDashboard"element={<AdminPharmacyDashboard />}/>
+        <Route path="/AdminLabReports" element={<AdminLabReports />} />
+        <Route path="/AdminMessages" element={<AdminMessages />} />
       </Routes>
     </Router>
   );
