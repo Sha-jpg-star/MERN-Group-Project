@@ -4,8 +4,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const doctorRoutes = require("./routes");
-const dotenv = require('dotenv');
-const appointmentRoutes = require('./routes/Appointment');
+ 
 
 
 const app = express();

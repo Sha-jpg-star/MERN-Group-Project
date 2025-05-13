@@ -18,6 +18,8 @@ import AdminNurseDashboard from "./AdminNurseDashboard";
 import AdminPharmacyDashboard from "./AdminPharmacyDashboard";
 import AdminLabReports from "./AdminLapReports";
 import AdminMessages from "./AdminMessages";
+import Patients from "./Patients";
+import Appointment from "./Appointment";
 
 
 function App() {
@@ -42,6 +44,8 @@ function App() {
         <Route path="/AdminPharmacyDashboard"element={<AdminPharmacyDashboard />}/>
         <Route path="/AdminLabReports" element={<AdminLabReports />} />
         <Route path="/AdminMessages" element={<AdminMessages />} />
+        <Route path="/Patients" element={<Patients />} />
+        <Route path="/Appointment" element={<Appointment />} />
       </Routes>
     </Router>
   );
