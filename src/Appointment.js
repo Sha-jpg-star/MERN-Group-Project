@@ -3,18 +3,22 @@ import axios from "axios";
 import {
   Container, Typography, TextField, Button, Paper,
   Table, TableBody, TableCell, TableContainer, TableHead, TableRow,
-  MenuItem, Box, IconButton
+  Box, IconButton, Grid
 } from "@mui/material";
 import { Edit, Delete } from "@mui/icons-material";
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DatePicker, TimePicker } from '@mui/x-date-pickers';
+import dayjs from 'dayjs';
 import Sidebar from "./Sidebar";
 
-function MyAppointments() {
+function Appointment() {
   const [appointments, setAppointments] = useState([]);
   const [form, setForm] = useState({
     patientName: "",
     doctorName: "",
-    date: "",
-    time: "",
+    date: dayjs(),
+    time: dayjs(),
     reason: ""
   });
   const [editId, setEditId] = useState(null);
@@ -29,19 +33,39 @@ function MyAppointments() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
+  const handleDateChange = (newDate) => {
+    setForm({ ...form, date: newDate });
+  };
+
+  const handleTimeChange = (newTime) => {
+    setForm({ ...form, time: newTime });
+  };
+
   const resetForm = () => {
-    setForm({ patientName: "", doctorName: "", date: "", time: "", reason: "" });
+    setForm({
+      patientName: "",
+      doctorName: "",
+      date: dayjs(),
+      time: dayjs(),
+      reason: ""
+    });
     setEditId(null);
   };
 
   const handleSubmit = () => {
+    const payload = {
+      ...form,
+      date: form.date.format("YYYY-MM-DD"),
+      time: form.time.format("HH:mm"),
+    };
+
     const url = editId
       ? `http://localhost:5000/api/appointments/${editId}`
       : "http://localhost:5000/api/appointments";
 
     const method = editId ? axios.put : axios.post;
 
-    method(url, form)
+    method(url, payload)
       .then(res => {
         const updated = editId
           ? appointments.map(a => (a._id === editId ? res.data : a))
@@ -54,7 +78,11 @@ function MyAppointments() {
 
   const handleEdit = (appointment) => {
     setEditId(appointment._id);
-    setForm(appointment);
+    setForm({
+      ...appointment,
+      date: dayjs(appointment.date),
+      time: dayjs(`1970-01-01T${appointment.time}`),
+    });
   };
 
   const handleDelete = (id) => {
@@ -67,24 +95,54 @@ function MyAppointments() {
     <div style={{ display: "flex" }}>
       <Sidebar />
       <Container sx={{ flex: 1, mt: 4 }}>
-        <Typography variant="h4" gutterBottom>Appointment Management</Typography>
+        <Typography variant="h4" gutterBottom fontWeight="bold" color="primary">
+          Appointment Scheduler
+        </Typography>
 
         <Paper elevation={3} sx={{ p: 3, mb: 4 }}>
-          <Typography variant="h6" gutterBottom fontWeight="bold" color="primary">
-            {editId ? "Update Appointment" : "Add New Appointment"}
+          <Typography variant="h6" gutterBottom fontWeight="bold">
+            {editId ? "Edit Appointment" : "New Appointment"}
           </Typography>
-          <TextField fullWidth label="Patient Name" name="patientName" value={form.patientName} onChange={handleChange} margin="normal" />
-          <TextField fullWidth label="Doctor Name" name="doctorName" value={form.doctorName} onChange={handleChange} margin="normal" />
-          <TextField fullWidth type="date" name="date" value={form.date} onChange={handleChange} margin="normal" InputLabelProps={{ shrink: true }} />
-          <TextField fullWidth type="time" name="time" value={form.time} onChange={handleChange} margin="normal" InputLabelProps={{ shrink: true }} />
-          <TextField fullWidth label="Reason" name="reason" value={form.reason} onChange={handleChange} margin="normal" />
 
-          <Box sx={{ display: "flex", gap: 2, mt: 2 }}>
-            <Button variant="contained" color={editId ? "secondary" : "primary"} onClick={handleSubmit}>
-              {editId ? "Update" : "Add"}
-            </Button>
-            {editId && <Button onClick={resetForm}>Cancel</Button>}
-          </Box>
+          <Grid container spacing={2}>
+            <Grid item xs={12} sm={6}>
+              <TextField fullWidth label="Patient Name" name="patientName" value={form.patientName} onChange={handleChange} />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField fullWidth label="Doctor Name" name="doctorName" value={form.doctorName} onChange={handleChange} />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DatePicker
+                  label="Date"
+                  value={form.date}
+                  onChange={handleDateChange}
+                  slotProps={{ textField: { fullWidth: true } }}
+                />
+              </LocalizationProvider>
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <TimePicker
+                  label="Time"
+                  value={form.time}
+                  onChange={handleTimeChange}
+                  slotProps={{ textField: { fullWidth: true } }}
+                />
+              </LocalizationProvider>
+            </Grid>
+            <Grid item xs={12}>
+              <TextField fullWidth label="Reason" name="reason" value={form.reason} onChange={handleChange} />
+            </Grid>
+            <Grid item xs={12}>
+              <Box sx={{ display: "flex", gap: 2 }}>
+                <Button variant="contained" color={editId ? "secondary" : "primary"} onClick={handleSubmit}>
+                  {editId ? "Update" : "Add"}
+                </Button>
+                {editId && <Button variant="outlined" onClick={resetForm}>Cancel</Button>}
+              </Box>
+            </Grid>
+          </Grid>
         </Paper>
 
         <TableContainer component={Paper}>
@@ -100,18 +158,24 @@ function MyAppointments() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {appointments.map((appointment, index) => (
-                <TableRow key={appointment._id} sx={{ backgroundColor: index % 2 === 0 ? "#fafafa" : "white" }}>
-                  <TableCell>{appointment.patientName}</TableCell>
-                  <TableCell>{appointment.doctorName}</TableCell>
-                  <TableCell>{appointment.date}</TableCell>
-                  <TableCell>{appointment.time}</TableCell>
-                  <TableCell>{appointment.reason}</TableCell>
+              {appointments.map((a, i) => (
+                <TableRow
+                  key={a._id}
+                  sx={{
+                    backgroundColor: i % 2 === 0 ? "#fafafa" : "white",
+                    "&:hover": { backgroundColor: "#f0f0f0" },
+                  }}
+                >
+                  <TableCell>{a.patientName}</TableCell>
+                  <TableCell>{a.doctorName}</TableCell>
+                  <TableCell>{a.date}</TableCell>
+                  <TableCell>{a.time}</TableCell>
+                  <TableCell>{a.reason}</TableCell>
                   <TableCell>
-                    <IconButton color="primary" onClick={() => handleEdit(appointment)}>
+                    <IconButton color="primary" onClick={() => handleEdit(a)}>
                       <Edit />
                     </IconButton>
-                    <IconButton color="error" onClick={() => handleDelete(appointment._id)}>
+                    <IconButton color="error" onClick={() => handleDelete(a._id)}>
                       <Delete />
                     </IconButton>
                   </TableCell>
@@ -125,4 +189,4 @@ function MyAppointments() {
   );
 }
 
-export default MyAppointments;
+export default Appointment;
