@@ -9,7 +9,6 @@ import MyAppointments from "./MyAppointments";
 import MyPatients from "./MyPatients";
 import Notifications from "./Notifications";
 import MyProfile from "./MyProfile";
-import Appointment from "./Appointment";
 import Patients from "./Patients";
 import DashboardPatients from "./DashboardPatients";
 import LoginPatients from "./loginpatients"; 
@@ -35,7 +34,6 @@ function App() {
         <Route path="/MyPatients" element={<MyPatients />} />
         <Route path="/Notifications" element={<Notifications />} />
         <Route path="/MyProfile" element={<MyProfile />} />
-        <Route path="/Appointment" element={<Appointment/>} />
         <Route path="/Pateints" element={<Patients/>} />
         <Route path="/DashboardPatients" element={<DashboardPatients />} />
         <Route path="/loginpatients" element={<LoginPatients />} />
