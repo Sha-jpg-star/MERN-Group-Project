@@ -4,42 +4,46 @@ import {
   Typography,
   Button,
   Table,
+  TableBody,
+  TableCell,
+  TableContainer,
   TableHead,
   TableRow,
-  TableCell,
-  TableBody,
   Paper,
   Dialog,
   DialogTitle,
   DialogContent,
-  TextField,
   DialogActions,
+  TextField,
   IconButton,
 } from "@mui/material";
-import { Delete, Edit, Add } from "@mui/icons-material";
+import { Edit, Delete } from "@mui/icons-material";
+
 import axios from "axios";
 
 const AdminNurseDashboard = () => {
   const [nurses, setNurses] = useState([]);
   const [openDialog, setOpenDialog] = useState(false);
-  const [formData, setFormData] = useState({
+
+  const [editMode, setEditMode] = useState(false);
+  const [currentNurse, setCurrentNurse] = useState({
     name: "",
     email: "",
     phone: "",
-    shift: "",
+    department: "",
   });
 
-  // Fetch nurses
   const fetchNurses = async () => {
     try {
-      const response = await axios.get("/api/admin/nurses", {
+      const res = await axios.get("/api/nurses", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("adminToken")}`,
         },
       });
-      setNurses(response.data);
-    } catch (error) {
-      console.error("Error fetching nurses", error);
+
+      setNurses(res.data);
+    } catch (err) {
+      console.error("Error fetching nurses:", err);
     }
   };
 
@@ -47,33 +51,52 @@ const AdminNurseDashboard = () => {
     fetchNurses();
   }, []);
 
-  const handleAddNurse = async () => {
+  const handleOpenDialog = (nurse = null) => {
+    setEditMode(!!nurse);
+    setCurrentNurse(
+      nurse || { name: "", email: "", phone: "", department: "" }
+    );
+    setOpenDialog(true);
+  };
+
+  const handleCloseDialog = () => {
+    setOpenDialog(false);
+    setCurrentNurse({ name: "", email: "", phone: "", department: "" });
+  };
+
+  const handleSave = async () => {
     try {
-      await axios.post("/api/admin/nurses", formData, {
+      if (editMode) {
+        await axios.put(`/api/nurses/${currentNurse._id}`, currentNurse, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("adminToken")}`,
+          },
+        });
+      } else {
+        await axios.post("/api/nurses", currentNurse, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("adminToken")}`,
+          },
+        });
+      }
+      handleCloseDialog();
+      fetchNurses();
+    } catch (err) {
+      console.error("Error saving nurse:", err);
+    }
+  };
+
+  const handleDelete = async (id) => {
+    if (!window.confirm("Are you sure you want to delete this nurse?")) return;
+    try {
+      await axios.delete(`/api/nurses/${id}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("adminToken")}`,
         },
       });
       fetchNurses();
-      setOpenDialog(false);
-      setFormData({ name: "", email: "", phone: "", shift: "" });
-    } catch (error) {
-      console.error("Error adding nurse", error);
-    }
-  };
-
-  const handleDeleteNurse = async (id) => {
-    if (window.confirm("Are you sure you want to delete this nurse?")) {
-      try {
-        await axios.delete(`/api/admin/nurses/${id}`, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("adminToken")}`,
-          },
-        });
-        fetchNurses();
-      } catch (error) {
-        console.error("Error deleting nurse", error);
-      }
+    } catch (err) {
+      console.error("Error deleting nurse:", err);
     }
   };
 
@@ -85,22 +108,23 @@ const AdminNurseDashboard = () => {
 
       <Button
         variant="contained"
-        startIcon={<Add />}
-        onClick={() => setOpenDialog(true)}
+        color="primary"
         sx={{ mb: 2 }}
+        onClick={() => handleOpenDialog()}
       >
         Add Nurse
       </Button>
 
-      <Paper>
+      <TableContainer component={Paper}>
         <Table>
           <TableHead>
             <TableRow>
               <TableCell>Name</TableCell>
               <TableCell>Email</TableCell>
               <TableCell>Phone</TableCell>
-              <TableCell>Shift</TableCell>
-              <TableCell align="right">Actions</TableCell>
+
+              <TableCell>Department</TableCell>
+              <TableCell align="center">Actions</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -109,68 +133,67 @@ const AdminNurseDashboard = () => {
                 <TableCell>{nurse.name}</TableCell>
                 <TableCell>{nurse.email}</TableCell>
                 <TableCell>{nurse.phone}</TableCell>
-                <TableCell>{nurse.shift}</TableCell>
-                <TableCell align="right">
-                  <IconButton color="primary" disabled>
-                    <Edit />
+
+                <TableCell>{nurse.department}</TableCell>
+                <TableCell align="center">
+                  <IconButton onClick={() => handleOpenDialog(nurse)}>
+                    <Edit color="primary" />
                   </IconButton>
-                  <IconButton
-                    color="error"
-                    onClick={() => handleDeleteNurse(nurse._id)}
-                  >
-                    <Delete />
+                  <IconButton onClick={() => handleDelete(nurse._id)}>
+                    <Delete color="error" />
                   </IconButton>
                 </TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
-      </Paper>
+      </TableContainer>
 
-      {/* Add Nurse Dialog */}
-      <Dialog open={openDialog} onClose={() => setOpenDialog(false)}>
-        <DialogTitle>Add New Nurse</DialogTitle>
+      <Dialog open={openDialog} onClose={handleCloseDialog}>
+        <DialogTitle>{editMode ? "Edit Nurse" : "Add Nurse"}</DialogTitle>
+
         <DialogContent>
           <TextField
             label="Name"
             fullWidth
             margin="dense"
-            value={formData.name}
-            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+            value={currentNurse.name}
+            onChange={(e) =>
+              setCurrentNurse({ ...currentNurse, name: e.target.value })
+            }
           />
           <TextField
             label="Email"
             fullWidth
             margin="dense"
-            value={formData.email}
+            value={currentNurse.email}
             onChange={(e) =>
-              setFormData({ ...formData, email: e.target.value })
+              setCurrentNurse({ ...currentNurse, email: e.target.value })
             }
           />
           <TextField
             label="Phone"
             fullWidth
             margin="dense"
-            value={formData.phone}
+            value={currentNurse.phone}
             onChange={(e) =>
-              setFormData({ ...formData, phone: e.target.value })
+              setCurrentNurse({ ...currentNurse, phone: e.target.value })
             }
           />
           <TextField
-            label="Shift"
+            label="Department"
             fullWidth
             margin="dense"
-            value={formData.shift}
+            value={currentNurse.department}
             onChange={(e) =>
-              setFormData({ ...formData, shift: e.target.value })
+              setCurrentNurse({ ...currentNurse, department: e.target.value })
             }
-            placeholder="e.g., Morning, Evening, Night"
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => setOpenDialog(false)}>Cancel</Button>
-          <Button variant="contained" onClick={handleAddNurse}>
-            Add
+          <Button onClick={handleCloseDialog}>Cancel</Button>
+          <Button onClick={handleSave} variant="contained" color="primary">
+            {editMode ? "Update" : "Add"}
           </Button>
         </DialogActions>
       </Dialog>

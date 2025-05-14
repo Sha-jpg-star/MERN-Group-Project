@@ -10,11 +10,14 @@ import MyPatients from "./MyPatients";
 import Notifications from "./Notifications";
 import MyProfile from "./MyProfile";
 import DashboardPatients from "./DashboardPatients";
-import LoginPatients from "./loginpatients";
+
+import LoginPatients from "./loginpatients"; // FIX: Correct casing
+
 import LoginDoctors from "./loginDoctors";
 import AdminLogout from "./AdminLogout";
 import AdminSetting from "./AdminSetting";
 import AdminNurseDashboard from "./AdminNurseDashboard";
+
 import AdminLabReports from "./AdminLabReports";
 import AdminMessages from "./AdminMessages";
 import AdminPharmacyDashboard from "./AdminPharmacyDashboard";
@@ -38,12 +41,14 @@ function App() {
         <Route path="/AdminLogout" element={<AdminLogout />} />
         <Route path="/AdminSetting" element={<AdminSetting />} />
         <Route path="/AdminNurseDashboard" element={<AdminNurseDashboard />} />
-        <Route path="/AdminLabReports" element={<AdminLabReports />} />
-        <Route path="/AdminMessages" element={<AdminMessages />} />
+
         <Route
           path="/AdminPharmacyDashboard"
           element={<AdminPharmacyDashboard />}
         />
+
+        <Route path="/AdminLabReports" element={<AdminLabReports />} />
+        <Route path="/AdminMessages" element={<AdminMessages />} />
       </Routes>
     </Router>
   );
