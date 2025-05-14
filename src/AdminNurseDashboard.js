@@ -18,11 +18,13 @@ import {
   IconButton,
 } from "@mui/material";
 import { Edit, Delete } from "@mui/icons-material";
+
 import axios from "axios";
 
 const AdminNurseDashboard = () => {
   const [nurses, setNurses] = useState([]);
   const [openDialog, setOpenDialog] = useState(false);
+
   const [editMode, setEditMode] = useState(false);
   const [currentNurse, setCurrentNurse] = useState({
     name: "",
@@ -38,6 +40,7 @@ const AdminNurseDashboard = () => {
           Authorization: `Bearer ${localStorage.getItem("adminToken")}`,
         },
       });
+
       setNurses(res.data);
     } catch (err) {
       console.error("Error fetching nurses:", err);
@@ -119,6 +122,7 @@ const AdminNurseDashboard = () => {
               <TableCell>Name</TableCell>
               <TableCell>Email</TableCell>
               <TableCell>Phone</TableCell>
+
               <TableCell>Department</TableCell>
               <TableCell align="center">Actions</TableCell>
             </TableRow>
@@ -129,6 +133,7 @@ const AdminNurseDashboard = () => {
                 <TableCell>{nurse.name}</TableCell>
                 <TableCell>{nurse.email}</TableCell>
                 <TableCell>{nurse.phone}</TableCell>
+
                 <TableCell>{nurse.department}</TableCell>
                 <TableCell align="center">
                   <IconButton onClick={() => handleOpenDialog(nurse)}>
@@ -146,6 +151,7 @@ const AdminNurseDashboard = () => {
 
       <Dialog open={openDialog} onClose={handleCloseDialog}>
         <DialogTitle>{editMode ? "Edit Nurse" : "Add Nurse"}</DialogTitle>
+
         <DialogContent>
           <TextField
             label="Name"
