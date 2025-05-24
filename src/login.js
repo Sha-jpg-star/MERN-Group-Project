@@ -8,311 +8,141 @@ import {
   FormControlLabel,
   Box,
 } from "@mui/material";
-import { useNavigate } from "react-router-dom"; // Import navigation hook
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const navigate = useNavigate(); // Initialize navigate function
+  const navigate = useNavigate();
 
   const handleAdminLogin = () => {
-    navigate("/Dashboard"); // Redirect to Admin Dashboard
+    navigate("/Dashboard");
   };
 
   return (
     <Container
+      maxWidth={false}
+      disableGutters
       style={{
-        textAlign: "center",
-        marginTop: "50px",
-        backgroundColor: "rgb(162, 241, 255)",
-        padding: "30px",
-        marginBottom: "50px",
+        minHeight: "100vh",
+        background: "linear-gradient(135deg, #e6e6fa 0%, #f3e5f5 100%)",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        padding: "20px",
       }}
     >
-      {/* Header Section */}
       <Box
         sx={{
-          backgroundColor: " rgb(31, 1, 139)",
-          padding: "20px",
-          borderRadius: "5px",
-          boxShadow: "0px 4px 10px rgba(24, 7, 250, 0.77)",
+          background: "rgba(255, 255, 255, 0.3)",
+          boxShadow: "0 8px 32px 0 rgba(31, 38, 135, 0.2)",
+          backdropFilter: "blur(10px)",
+          WebkitBackdropFilter: "blur(10px)",
+          borderRadius: "20px",
+          padding: "40px",
+          width: "100%",
+          maxWidth: "400px",
+          textAlign: "center",
         }}
       >
+        {/* Header */}
         <img
           src="/landingPageIcon2.png"
           alt="HMS Logo"
           style={{ height: "50px", borderRadius: "50%" }}
         />
-        <Typography variant="h4" color="white" sx={{ fontWeight: "bold" }}>
+        <Typography variant="h5" sx={{ fontWeight: "bold", mt: 1 }}>
           MediCare HMS
         </Typography>
-      </Box>
 
-      <Box>
-        <Typography
-          sx={{ fontSize: "18px", fontWeight: "italic", marginTop: "25px" }}
-        >
+        <Typography variant="body2" sx={{ mt: 2, fontStyle: "italic" }}>
           Your gateway to seamless healthcare management. Log in and take
           control of your workflow effortlessly.
         </Typography>
-      </Box>
 
-      {/* Login Form Section */}
-      <Container sx={{ marginBottom: "50px" }}>
-        {/* Admin login */}
-        <Container
-          maxWidth="xs"
-          style={{ textAlign: "center", marginTop: "50px" }}
-        >
-          <Box
+        {/* Admin Login Form */}
+        <Box sx={{ mt: 4 }}>
+          <img
+            src="/adminIcon2.png"
+            alt="Admin Icon"
+            style={{ height: "40px", marginBottom: "10px" }}
+          />
+          <Typography variant="h6" sx={{ fontWeight: "bold", mb: 2 }}>
+            Admin
+          </Typography>
+
+          <TextField
+            label="Username / Email"
+            variant="outlined"
+            fullWidth
+            margin="normal"
+          />
+          <TextField
+            label="Password"
+            type="password"
+            variant="outlined"
+            fullWidth
+            margin="normal"
+          />
+
+          <FormControlLabel
+            control={<Checkbox />}
+            label="Remember Username"
+            sx={{ mt: 1 }}
+          />
+
+          <Button
+            fullWidth
             sx={{
-              backgroundColor: " rgb(158, 141, 255)",
-              padding: "30px",
-              marginTop: "20px",
-              borderRadius: "10px",
-              boxShadow: "0px 4px 10px rgb(0, 0, 0)",
+              mt: 2,
+              py: 1.5,
+              backgroundColor: "#6a1b9a",
+              color: "#fff",
+              fontWeight: "bold",
+              '&:hover': {
+                backgroundColor: "#4a148c",
+              },
+            }}
+            onClick={handleAdminLogin}
+          >
+            LOGIN
+          </Button>
+
+          <Typography variant="body2" sx={{ mt: 2 }}>
+            <a
+              href="./login"
+              style={{ color: "#4a148c", textDecoration: "none" }}
+            >
+              Forgotten your username or password?
+            </a>
+          </Typography>
+
+          <Button
+            fullWidth
+            variant="outlined"
+            sx={{
+              mt: 2,
+              py: 1.5,
+              borderColor: "#888",
+              color: "#444",
+              fontWeight: "bold",
+              '&:hover': {
+                backgroundColor: "#f5f5f5",
+              },
             }}
           >
-            <img
-              src="/adminIcon2.png"
-              alt="HMS Logo"
-              style={{ height: "40px", marginBottom: "10px" }}
-            />
-            <Typography variant="h6" color="black" sx={{ fontWeight: "bold" }}>
-              Admin
-            </Typography>
-            <TextField
-              label="Username / Email"
-              variant="outlined"
-              fullWidth
-              margin="normal"
-            />
-            <TextField
-              label="Password"
-              type="password"
-              variant="outlined"
-              fullWidth
-              margin="normal"
-            />
-            <FormControlLabel
-              control={<Checkbox />}
-              label="Remember Username"
-            />
+            LOG IN AS A GUEST
+          </Button>
+        </Box>
 
-            <Button
-              onClick={handleAdminLogin} // Admin login handler
-              fullWidth
-              sx={{
-                marginTop: "15px",
-                padding: "10px",
-                color: "white",
-                backgroundColor: "rgb(187, 0, 31)",
-                boxShadow: "0px 4px 10px rgb(0, 22, 92)",
-              }}
-            >
-              LOGIN
-            </Button>
-
-            <Typography variant="body2" sx={{ marginTop: "10px" }}>
-              <a
-                href="./login"
-                style={{ textDecoration: "none", color: "darkblue" }}
-              >
-                Forgotten your username or password?
-              </a>
-            </Typography>
-
-            <Button
-              variant="contained"
-              fullWidth
-              sx={{
-                marginTop: "15px",
-                padding: "10px",
-                color: "white",
-                backgroundColor: "rgb(126, 124, 124)",
-              }}
-            >
-              LOG IN AS A GUEST
-            </Button>
-          </Box>
-        </Container>
-      </Container>
-
-      {/* Doctor login 
-        <Container
-          maxWidth="xs"
-          style={{ textAlign: "center", marginTop: "50px" }}
-        >
-          <Box
-            sx={{
-              backgroundColor: "rgb(178, 173, 245)",
-              padding: "30px",
-              marginTop: "20px",
-              borderRadius: "10px",
-              boxShadow: "0px 4px 10px rgb(0, 0, 0)",
-            }}
-          >
-            <img
-              src="/adminIcon2.png"
-              alt="HMS Logo"
-              style={{ height: "40px", marginBottom: "10px" }}
-            />
-            <Typography variant="h6" color="black" sx={{ fontWeight: "bold" }}>
-              Doctor
-            </Typography>
-            <TextField
-              label="Username / Email"
-              variant="outlined"
-              fullWidth
-              margin="normal"
-            />
-            <TextField
-              label="Password"
-              type="password"
-              variant="outlined"
-              fullWidth
-              margin="normal"
-            />
-            <FormControlLabel
-              control={<Checkbox />}
-              label="Remember Username"
-            />
-
-            <Button
-              onClick={handleDoctorLogin} // Doctor login handler
-              fullWidth
-              sx={{
-                marginTop: "15px",
-                padding: "10px",
-                color: "white",
-                backgroundColor: "rgb(199, 4, 37)",
-                boxShadow: "0px 4px 10px rgb(0, 22, 92)",
-              }}
-            >
-              LOGIN
-            </Button>
-
-            <Typography variant="body2" sx={{ marginTop: "10px" }}>
-              <a
-                href="./login"
-                style={{ textDecoration: "none", color: "darkblue" }}
-              >
-                Forgotten your username or password?
-              </a>
-            </Typography>
-
-            <Button
-              variant="contained"
-              fullWidth
-              sx={{
-                marginTop: "15px",
-                padding: "10px",
-                color: "white",
-                backgroundColor: "rgb(126, 124, 124)",
-              }}
-            >
-              LOG IN AS A GUEST
-            </Button>
-          </Box>
-        </Container>
-
-        Patient login 
-        <Container
-          maxWidth="xs"
-          style={{ textAlign: "center", marginTop: "50px" }}
-        >
-          <Box
-            sx={{
-              backgroundColor: "rgb(180, 194, 255)",
-              padding: "30px",
-              marginTop: "20px",
-              borderRadius: "10px",
-              boxShadow: "0px 4px 10px rgb(0, 0, 0)",
-            }}
-          >
-            <img
-              src="/adminIcon2.png"
-              alt="HMS Logo"
-              style={{ height: "40px", marginBottom: "10px" }}
-            />
-            <Typography variant="h6" color="black" sx={{ fontWeight: "bold" }}>
-              Patient
-            </Typography>
-            <TextField
-              label="Username / Email"
-              variant="outlined"
-              fullWidth
-              margin="normal"
-            />
-            <TextField
-              label="Password"
-              type="password"
-              variant="outlined"
-              fullWidth
-              margin="normal"
-            />
-            <FormControlLabel
-              control={<Checkbox />}
-              label="Remember Username"
-            />
-
-            <Button
-              onClick={handlePatientLogin} // Patient login handler
-              fullWidth
-              sx={{
-                marginTop: "15px",
-                padding: "10px",
-                color: "white",
-                backgroundColor: "rgb(199, 4, 37)",
-                boxShadow: "0px 4px 10px rgb(0, 22, 92)",
-              }}
-            >
-              LOGIN
-            </Button>
-
-            <Typography variant="body2" sx={{ marginTop: "10px" }}>
-              <a
-                href="./login"
-                style={{ textDecoration: "none", color: "darkblue" }}
-              >
-                Forgotten your username or password?
-              </a>
-            </Typography>
-
-            <Button
-              variant="contained"
-              fullWidth
-              sx={{
-                marginTop: "15px",
-                padding: "10px",
-                color: "white",
-                backgroundColor: "rgb(126, 124, 124)",
-              }}
-            >
-              LOG IN AS A GUEST
-            </Button>
-          </Box>
-        </Container>
-      </Container>*/}
-
-      {/* Footer Section */}
-      <Box
-        sx={{
-          marginTop: "20px",
-          padding: "20px",
-          backgroundColor: "rgb(24, 24, 133)",
-          borderRadius: "5px",
-        }}
-      >
-        <img
-          src="/landingPageIcon2.png"
-          alt="HMS Logo"
-          style={{ height: "30px" }}
-        />
-        <Typography variant="body2">
-          MediCare - Hospital Management System
-        </Typography>
-        <Typography variant="body2">
-          © 2024 - MediCare ALL RIGHTS RESERVED.
-        </Typography>
+        {/* Footer */}
+        <Box sx={{ mt: 4 }}>
+          <img src="/landingPageIcon2.png" alt="Logo" height="30" />
+          <Typography variant="body2">
+            MediCare - Hospital Management System
+          </Typography>
+          <Typography variant="body2">
+            © 2024 - MediCare ALL RIGHTS RESERVED.
+          </Typography>
+        </Box>
       </Box>
     </Container>
   );
