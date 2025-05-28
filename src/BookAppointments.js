@@ -23,7 +23,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const BookAppointment = () => {
+const BookAppointments = () => {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -260,4 +260,4 @@ const BookAppointment = () => {
   );
 };
 
-export default BookAppointment;
+export default BookAppointments;
