@@ -9,15 +9,20 @@ import MyPatients from "./MyPatients";
 import Notifications from "./Notifications";
 import MyProfile from "./MyProfile";
 import DashboardPatients from "./DashboardPatients";
-import LoginPatients from "./loginpatients"; 
+import LoginPatients from "./loginpatients";
 import LoginDoctors from "./loginDoctors";
 import AdminLogout from "./AdminLogout";
 import AdminSetting from "./AdminSetting";
 import AdminNurseDashboard from "./AdminNurseDashboard";
 import AdminMessages from "./AdminMessages";
 import AdminPharmacyDashboard from "./AdminPharmacyDashboard";
+import Patientlogout from "./Patientlogout";
+import BookAppointments from "./BookAppointments";
+import PatientNotifications from "./PatientNotification";
+import PatientMyProfile from "./PatientMyProfile";
+import AdminAppointments from "./AdminAppointments";
 
-function App() { 
+function App() {
   return (
     <Router>
       <Routes>
@@ -36,8 +41,19 @@ function App() {
         <Route path="/AdminLogout" element={<AdminLogout />} />
         <Route path="/AdminSetting" element={<AdminSetting />} />
         <Route path="/AdminNurseDashboard" element={<AdminNurseDashboard />} />
-        <Route path="/AdminPharmacyDashboard" element={<AdminPharmacyDashboard />} />
-       <Route path="/AdminMessages" element={<AdminMessages />} />
+        <Route
+          path="/AdminPharmacyDashboard"
+          element={<AdminPharmacyDashboard />}
+        />
+        <Route path="/AdminMessages" element={<AdminMessages />} />
+        <Route path="/Patientlogout" element={<Patientlogout />} />
+        <Route path="/BookAppointments" element={<BookAppointments />} />
+        <Route
+          path="/PatientNotifications"
+          element={<PatientNotifications />}
+        />
+        <Route path="/PatientMyProfile" element={<PatientMyProfile />} />
+        <Route path="/AdminAppointments" element={<AdminAppointments />} />
       </Routes>
     </Router>
   );

@@ -12,6 +12,8 @@ import {
   DialogActions,
 } from "@mui/material";
 
+import Sidebar from "./Sidebar";
+
 const AdminLogout = () => {
   const navigate = useNavigate();
   const [openDialog, setOpenDialog] = useState(true);
@@ -28,19 +30,11 @@ const AdminLogout = () => {
   };
 
   return (
-    <Box
-      display="flex"
-      justifyContent="center"
-      alignItems="center"
-      height="100vh"
-      sx={{ backgroundColor: "#f5f5f5" }}
-    >
-      <Paper elevation={3} sx={{ p: 5, textAlign: "center" }}>
-        <Typography variant="h5" gutterBottom>
-          Admin Logout
-        </Typography>
-        <Typography variant="body1" mt={2}>
-          You are about to log out. Please confirm your action.
+    <Box sx={{ display: "flex" }}>
+      <Sidebar />
+      <Box sx={{ flexGrow: 1, p: 3, backgroundColor: "#dafbfd" }}>
+        <Typography variant="h4" sx={{ fontWeight: "bold", mb: 3 }}>
+          LogOut
         </Typography>
 
         <Dialog
@@ -63,7 +57,7 @@ const AdminLogout = () => {
             </Button>
           </DialogActions>
         </Dialog>
-      </Paper>
+      </Box>
     </Box>
   );
 };

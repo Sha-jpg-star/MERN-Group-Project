@@ -24,7 +24,11 @@ const Sidebar = () => {
     { text: "Dashboard", path: "/Dashboard", icon: <DashboardIcon /> },
     { text: "Doctors Management", path: "/Doctors", icon: <PeopleIcon /> },
     { text: "Patients Management", path: "/Patients", icon: <PersonIcon /> },
-    { text: "View All Appointment", path: "/Appointment", icon: <EventAvailableIcon /> },
+    {
+      text: "View All Appointment",
+      path: "/AdminAppointments",
+      icon: <EventAvailableIcon />,
+    },
     { text: "Messages", path: "/AdminMessages", icon: <MessageIcon /> },
     { text: "Settings", path: "/AdminSetting", icon: <SettingsIcon /> },
     { text: "Logout", path: "/AdminLogout", icon: <ExitToAppIcon /> },
@@ -58,10 +62,7 @@ const Sidebar = () => {
             marginBottom: "5px",
           }}
         />
-        <Typography
-          variant="h6"
-          sx={{ color: "yellow", fontWeight: "bold" }}
-        >
+        <Typography variant="h6" sx={{ color: "yellow", fontWeight: "bold" }}>
           MediCare
         </Typography>
       </Box>
@@ -92,4 +93,3 @@ const Sidebar = () => {
 };
 
 export default Sidebar;
-
