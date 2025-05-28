@@ -22,7 +22,7 @@ const LoginDoctors = () => {
       disableGutters
       style={{
         minHeight: "100vh",
-        background: "linear-gradient(135deg,rgb(122, 225, 228) 0%, #0ed2f7 100%)",
+        background: "linear-gradient(135deg,blue 0%,rgb(136, 172, 229) 100%)",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
@@ -48,7 +48,7 @@ const LoginDoctors = () => {
           style={{ width: "60px", marginBottom: "20px" }}
         />
         <Typography variant="h5" sx={{ fontWeight: "bold", mb: 1 }}>
-          Welcome Back!
+         Doctor Welcome Back!
         </Typography>
         <Typography variant="body2" sx={{ mb: 3 }}>
           Login to manage your appointments
@@ -78,11 +78,11 @@ const LoginDoctors = () => {
           sx={{
             mt: 2,
             py: 1.5,
-            backgroundColor: "#0ed2f7",
+            backgroundColor: "blue",
             color: "#fff",
             fontWeight: "bold",
             '&:hover': {
-              backgroundColor: "#0cbcd1",
+              backgroundColor: "rgb(88, 115, 225)",
             },
             boxShadow: "none",
           }}
@@ -103,11 +103,11 @@ const LoginDoctors = () => {
           sx={{
             mt: 2,
             py: 1.5,
-            borderColor: "#4285F4",
-            color: "#4285F4",
+            borderColor: "navy",
+            color: "navy",
             fontWeight: "bold",
             '&:hover': {
-              borderColor: "#357ae8",
+              borderColor: "rgb(67, 113, 205)",
               backgroundColor: "#e8f0fe",
             },
           }}

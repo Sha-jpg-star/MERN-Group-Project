@@ -6,20 +6,30 @@ import {
   ListItemIcon,
   ListItemText,
   Typography,
+  Box,
 } from "@mui/material";
+
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import PeopleIcon from "@mui/icons-material/People";
 import PersonIcon from "@mui/icons-material/Person";
-import LocalPharmacyIcon from "@mui/icons-material/LocalPharmacy"; // Pharmacy
-import MedicalServicesIcon from "@mui/icons-material/MedicalServices"; // Nurse
-import DescriptionIcon from "@mui/icons-material/Description"; // Lab Reports
-import EventAvailableIcon from "@mui/icons-material/EventAvailable"; // Appointments
+import EventAvailableIcon from "@mui/icons-material/EventAvailable";
 import MessageIcon from "@mui/icons-material/Message";
 import SettingsIcon from "@mui/icons-material/Settings";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
-import { Link } from "react-router-dom"; // Import Link for navigation
+
+import { Link } from "react-router-dom";
 
 const Sidebar = () => {
+  const menuItems = [
+    { text: "Dashboard", path: "/Dashboard", icon: <DashboardIcon /> },
+    { text: "Doctors Management", path: "/Doctors", icon: <PeopleIcon /> },
+    { text: "Patients Management", path: "/Patients", icon: <PersonIcon /> },
+    { text: "View All Appointment", path: "/Appointment", icon: <EventAvailableIcon /> },
+    { text: "Messages", path: "/AdminMessages", icon: <MessageIcon /> },
+    { text: "Settings", path: "/AdminSetting", icon: <SettingsIcon /> },
+    { text: "Logout", path: "/AdminLogout", icon: <ExitToAppIcon /> },
+  ];
+
   return (
     <Drawer
       variant="permanent"
@@ -27,81 +37,53 @@ const Sidebar = () => {
         width: 250,
         "& .MuiDrawer-paper": {
           width: 250,
-          backgroundColor: "purple",
-          color: "#ffff",
+          backgroundColor: "blue",
+          color: "#fff",
+          display: "flex",
+          flexDirection: "column",
           alignItems: "center",
+          paddingTop: 2,
         },
       }}
     >
-      {/* Logo and Title */}
-      <img
-        src="/landingPageIcon2.png"
-        alt="Logo"
-        style={{
-          height: "40px",
-          padding: "10px",
-          width: "40px",
-          marginTop: "5px",
-          borderRadius: "50%",
-        }}
-      />
-      <Typography
-        variant="h6"
-        sx={{
-          flexGrow: 1,
-          color: "yellow",
-          textAlign: "center",
-          fontWeight: "bold",
-        }}
-      >
-        MediCare
-      </Typography>
+      {/* Logo & Title */}
+      <Box sx={{ textAlign: "center", mb: 2 }}>
+        <img
+          src="/landingPageIcon2.png"
+          alt="Logo"
+          style={{
+            height: "40px",
+            width: "40px",
+            borderRadius: "50%",
+            marginBottom: "5px",
+          }}
+        />
+        <Typography
+          variant="h6"
+          sx={{ color: "yellow", fontWeight: "bold" }}
+        >
+          MediCare
+        </Typography>
+      </Box>
 
-      {/* Sidebar List Items */}
-      <List sx={{ width: "200px" }}>
-        {[
-          { text: "Dashboard", path: "/Dashboard", icon: <DashboardIcon /> },
-          { text: "Doctors", path: "/Doctors", icon: <PeopleIcon /> },
-          { text: "Patients", path: "/Patients", icon: <PersonIcon /> },
-          {
-            text: "Pharmacy",
-            path: "/AdminPharmacyDashboard",
-            icon: <LocalPharmacyIcon />,
-          },
-          {
-            text: "Nurse",
-            path: "/AdminNurseDashboard",
-            icon: <MedicalServicesIcon />,
-          },
-          {
-            text: "Lab Reports",
-            path: "/AdminLabReports",
-            icon: <DescriptionIcon />,
-          },
-          {
-            text: "Appointment",
-            path: "/Appointment",
-            icon: <EventAvailableIcon />,
-          },
-          { text: "Messages", path: "/AdminMessages", icon: <MessageIcon /> },
-          { text: "Settings", path: "/AdminSetting", icon: <SettingsIcon /> },
-          { text: "Logout", path: "/AdminLogout", icon: <ExitToAppIcon /> },
-        ].map((item, index) => (
+      {/* Menu Items */}
+      <List sx={{ width: "100%" }}>
+        {menuItems.map((item, index) => (
           <ListItem
             button
             key={index}
+            component={Link}
+            to={item.path}
             sx={{
-              backgroundColor: "rgb(155, 8, 155)",
+              backgroundColor: "blue",
+              color: "#fff",
+              "&:hover": {
+                backgroundColor: "#003366",
+              },
             }}
           >
-            {/* Link for Navigation */}
-            <Link
-              to={item.path}
-              style={{ color: "white", textDecoration: "none" }}
-            >
-              <ListItemIcon sx={{ color: "#ffff" }}>{item.icon}</ListItemIcon>
-              <ListItemText primary={item.text} />
-            </Link>
+            <ListItemIcon sx={{ color: "#fff" }}>{item.icon}</ListItemIcon>
+            <ListItemText primary={item.text} />
           </ListItem>
         ))}
       </List>
@@ -110,3 +92,4 @@ const Sidebar = () => {
 };
 
 export default Sidebar;
+

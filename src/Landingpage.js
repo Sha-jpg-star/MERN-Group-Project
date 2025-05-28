@@ -32,7 +32,7 @@ const LandingPage = () => {
               At MediCare, we believe in providing exceptional healthcare
               solutions with compassion and expertise. Our dedicated team of
               professionals ensures that you receive the best medical care,
-              tailored to your needs. Join us in creating a healthier tomorrow!
+              tailored to your needs. Join us in creating a healthier tomorrow!   
             </Typography>
           <Button
               variant="contained"
@@ -43,6 +43,7 @@ const LandingPage = () => {
               Make An Appointment
             </Button>
             <Button
+              
               variant="outlined"
               component={Link}
               to="/loginDoctors"
