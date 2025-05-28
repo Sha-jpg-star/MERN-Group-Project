@@ -18,13 +18,9 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import PersonIcon from "@mui/icons-material/Person";
 
-
-
-
 const SidebarDoctors = () => {
   const menuItems = [
     { text: "Dashboard", path: "/DashboardDoctors", icon: <DashboardIcon /> },
-    { text: "Doctor Information", path: "/Doctor-Information", icon: <PersonIcon /> },
 
     {
       text: "Appointments",
@@ -42,41 +38,41 @@ const SidebarDoctors = () => {
 
   return (
     <Drawer
-         variant="permanent"
-         sx={{
-           width: 250,
-           "& .MuiDrawer-paper": {
-             width: 250,
-             backgroundColor: "blue",
-             color: "#ffff",
-             alignItems: "center",
-           },
-         }}
-       >
-         {/* Logo and Title */}
-         <img
-           src="/landingPageIcon2.png"
-           alt="Logo"
-           style={{
-             height: "40px",
-             padding: "10px",
-             width: "40px",
-             marginTop: "5px",
-             borderRadius: "50%",
-           }}
-         />
-         <Typography
-           variant="h6"
-           sx={{
-             flexGrow: 1,
-             color: "yellow",
-             textAlign: "center",
-             fontWeight: "bold",
-           }}
-         >
-           MediCare
-         </Typography>
-    
+      variant="permanent"
+      sx={{
+        width: 250,
+        "& .MuiDrawer-paper": {
+          width: 250,
+          backgroundColor: "blue",
+          color: "#ffff",
+          alignItems: "center",
+        },
+      }}
+    >
+      {/* Logo and Title */}
+      <img
+        src="/landingPageIcon2.png"
+        alt="Logo"
+        style={{
+          height: "40px",
+          padding: "10px",
+          width: "40px",
+          marginTop: "5px",
+          borderRadius: "50%",
+        }}
+      />
+      <Typography
+        variant="h6"
+        sx={{
+          flexGrow: 1,
+          color: "yellow",
+          textAlign: "center",
+          fontWeight: "bold",
+        }}
+      >
+        MediCare
+      </Typography>
+
       <Box sx={{ padding: 2 }}>
         <Typography variant="h5" sx={{ fontWeight: "bold", color: "#fff" }}>
           Doctor Panel
@@ -109,8 +105,6 @@ const SidebarDoctors = () => {
       >
         Back to Home
       </Button>
-
-      
     </Drawer>
   );
 };

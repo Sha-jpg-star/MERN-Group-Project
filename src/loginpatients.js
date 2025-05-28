@@ -77,7 +77,7 @@ const LoginPatients = () => {
               style={{ height: "40px", marginBottom: "10px" }}
             />
             <Typography variant="h6" color="black" sx={{ fontWeight: "bold" }}>
-              Patient
+              You log as a Patient
             </Typography>
 
             <TextField
@@ -164,4 +164,3 @@ const LoginPatients = () => {
 };
 
 export default LoginPatients;
-

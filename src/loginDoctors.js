@@ -48,7 +48,7 @@ const LoginDoctors = () => {
           style={{ width: "60px", marginBottom: "20px" }}
         />
         <Typography variant="h5" sx={{ fontWeight: "bold", mb: 1 }}>
-         Doctor Welcome Back!
+          You log as a Doctor
         </Typography>
         <Typography variant="body2" sx={{ mb: 3 }}>
           Login to manage your appointments
@@ -81,7 +81,7 @@ const LoginDoctors = () => {
             backgroundColor: "blue",
             color: "#fff",
             fontWeight: "bold",
-            '&:hover': {
+            "&:hover": {
               backgroundColor: "rgb(88, 115, 225)",
             },
             boxShadow: "none",
@@ -92,7 +92,10 @@ const LoginDoctors = () => {
         </Button>
 
         <Typography variant="body2" sx={{ mt: 2 }}>
-          <a href="./login" style={{ color: "#0d47a1", textDecoration: "none" }}>
+          <a
+            href="./login"
+            style={{ color: "#0d47a1", textDecoration: "none" }}
+          >
             Forgot your username or password?
           </a>
         </Typography>
@@ -106,7 +109,7 @@ const LoginDoctors = () => {
             borderColor: "navy",
             color: "navy",
             fontWeight: "bold",
-            '&:hover': {
+            "&:hover": {
               borderColor: "rgb(67, 113, 205)",
               backgroundColor: "#e8f0fe",
             },
