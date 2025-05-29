@@ -88,7 +88,7 @@ const BookAppointments = () => {
   };
 
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box sx={{ display: "flex", backgroundColor: "rgb(218, 251, 253)" }}>
       {/* Sidebar */}
       <Drawer
         variant="permanent"
@@ -96,7 +96,7 @@ const BookAppointments = () => {
           width: 250,
           "& .MuiDrawer-paper": {
             width: 250,
-            backgroundColor: "blue",
+            backgroundColor: "rgb(3, 0, 172)",
             color: "#fff",
             display: "flex",
             flexDirection: "column",
@@ -150,7 +150,7 @@ const BookAppointments = () => {
         sx={{
           marginTop: 4,
           marginBottom: 4,
-          backgroundColor: "rgb(218, 251, 253)",
+
           padding: "75px",
         }}
       >
