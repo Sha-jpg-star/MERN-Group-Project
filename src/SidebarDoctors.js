@@ -43,7 +43,7 @@ const SidebarDoctors = () => {
         width: 250,
         "& .MuiDrawer-paper": {
           width: 250,
-          backgroundColor: "blue",
+          backgroundColor: "rgb(3, 0, 172)",
           color: "#ffff",
           alignItems: "center",
         },
@@ -86,7 +86,7 @@ const SidebarDoctors = () => {
             component={Link}
             to={item.path}
             sx={{
-              "&:hover": { backgroundColor: "rgb(19, 137, 148)" },
+              "&:hover": { backgroundColor: "rgb(2, 0, 114)" },
               textDecoration: "none",
               color: "#fff", // This sets the text color of the entire ListItem
             }}

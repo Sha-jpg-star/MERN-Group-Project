@@ -31,7 +31,7 @@ const LoginPatients = () => {
       {/* Header */}
       <Box
         sx={{
-          backgroundColor: "rgb(31, 1, 139)",
+          backgroundColor: "rgb(58, 11, 224)",
           padding: "20px",
           borderRadius: "5px",
           boxShadow: "0px 4px 10px rgba(24, 7, 250, 0.77)",
@@ -64,7 +64,7 @@ const LoginPatients = () => {
         >
           <Box
             sx={{
-              backgroundColor: "rgb(180, 194, 255)",
+              backgroundColor: "rgb(91, 244, 255)",
               padding: "30px",
               marginTop: "20px",
               borderRadius: "10px",
@@ -94,6 +94,7 @@ const LoginPatients = () => {
               margin="normal"
             />
             <FormControlLabel
+              sx={{ mr: "120px" }}
               control={<Checkbox />}
               label="Remember Username"
             />
@@ -105,7 +106,7 @@ const LoginPatients = () => {
                 marginTop: "15px",
                 padding: "10px",
                 color: "white",
-                backgroundColor: "rgb(199, 4, 37)",
+                backgroundColor: "rgb(223, 39, 70)",
                 boxShadow: "0px 4px 10px rgb(0, 22, 92)",
               }}
             >
@@ -131,7 +132,7 @@ const LoginPatients = () => {
                 backgroundColor: "rgb(126, 124, 124)",
               }}
             >
-              LOG IN AS A GUEST
+              Continue with Google
             </Button>
           </Box>
         </Container>

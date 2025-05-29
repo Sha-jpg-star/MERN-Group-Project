@@ -79,7 +79,7 @@ const PatientNotification = () => {
           width: 250,
           "& .MuiDrawer-paper": {
             width: 250,
-            backgroundColor: "blue",
+            backgroundColor: "rgb(3, 0, 172)",
             color: "#fff",
             display: "flex",
             flexDirection: "column",
