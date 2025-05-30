@@ -3,10 +3,15 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+<<<<<<< HEAD
 
 // Import routes
 const doctorRoutes = require("./routes/Doctor");
 const appointmentRoutes = require("./routes/Appointment");
+=======
+const doctorRoutes = require("./routes");
+const patientsRoutes = require("./route");
+>>>>>>> efcec65ef16c16049c1a18d6f36d41cdc0079b24
 
 const app = express();
 
@@ -25,7 +30,11 @@ mongoose
 
 // Routes
 app.use("/api/doctors", doctorRoutes);
+<<<<<<< HEAD
 app.use("/api/appointments", appointmentRoutes);
+=======
+app.use("/api/Patients", patientsRoutes);
+>>>>>>> efcec65ef16c16049c1a18d6f36d41cdc0079b24
 
 // Default Route
 app.get("/", (req, res) => {
