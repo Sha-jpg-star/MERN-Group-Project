@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Typography,
   Drawer,
@@ -10,7 +9,6 @@ import {
   Grid,
   Card,
   CardContent,
-  Divider,
   Avatar,
 } from "@mui/material";
 

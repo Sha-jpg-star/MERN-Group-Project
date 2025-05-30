@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Box,
   Typography,
@@ -8,7 +7,6 @@ import {
   ListItemIcon,
   ListItemText,
   Paper,
-  Divider,
 } from "@mui/material";
 import {
   Dashboard as DashboardIcon,
