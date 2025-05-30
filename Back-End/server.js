@@ -4,6 +4,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const doctorRoutes = require("./routes");
+const patientsRoutes = require("./route");
 
 const app = express();
 app.use(cors());
@@ -20,6 +21,7 @@ db.once("open", () => console.log("MongoDB connected ✅"));
 
 // ✅ API routes
 app.use("/api/doctors", doctorRoutes);
+app.use("/api/Patients", patientsRoutes);
 
 app.listen(5000, () => console.log("Server running on port 5000"));
 
