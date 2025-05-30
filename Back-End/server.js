@@ -1,17 +1,11 @@
-// server.js
-
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
-<<<<<<< HEAD
 
 // Import routes
 const doctorRoutes = require("./routes/Doctor");
 const appointmentRoutes = require("./routes/Appointment");
-=======
-const doctorRoutes = require("./routes");
-const patientsRoutes = require("./route");
->>>>>>> efcec65ef16c16049c1a18d6f36d41cdc0079b24
+const patientsRoutes = require("./routes/Patients");
 
 const app = express();
 
@@ -19,7 +13,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Connect to MongoDB
+// MongoDB connection
 mongoose
   .connect("mongodb://localhost:27017/medicare", {
     useNewUrlParser: true,
@@ -30,17 +24,14 @@ mongoose
 
 // Routes
 app.use("/api/doctors", doctorRoutes);
-<<<<<<< HEAD
 app.use("/api/appointments", appointmentRoutes);
-=======
 app.use("/api/Patients", patientsRoutes);
->>>>>>> efcec65ef16c16049c1a18d6f36d41cdc0079b24
 
-// Default Route
+// Default route
 app.get("/", (req, res) => {
   res.send("Medicare API is running...");
 });
 
-// Start server
+// Server start
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));

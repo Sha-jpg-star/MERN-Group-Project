@@ -12,7 +12,7 @@ import {
   DialogActions,
 } from "@mui/material";
 import axios from "axios";
-import SidebarDoctors from "./SidebarDoctors";
+
 
 const BookAppointments = () => {
   const [formData, setFormData] = useState({
@@ -85,7 +85,7 @@ const BookAppointments = () => {
 
   return (
     <Container maxWidth="sm" sx={{ mt: 5 }}>
-      <SidebarDoctors />
+  
       <Paper elevation={3} sx={{ p: 4 }}>
         <Typography variant="h5" gutterBottom>
           {editMode ? "Update Appointment" : "Book Appointment"}
