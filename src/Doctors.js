@@ -129,7 +129,7 @@ function Doctors() {
     <div style={{ display: "flex" }}>
       <Sidebar />
       <Container
-        sx={{ flex: 1, paddingTop: 4, backgroundColor: "rgb(218, 251, 253)" }}
+        sx={{ flex: 1, paddingTop: 4, backgroundColor: "rgb(255, 255, 255)" }}
       >
         <Typography variant="h4" gutterBottom>
           Doctors Management

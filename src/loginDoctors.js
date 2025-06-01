@@ -22,7 +22,7 @@ const LoginDoctors = () => {
       disableGutters
       style={{
         minHeight: "100vh",
-        background: "linear-gradient(135deg,blue 0%,rgb(136, 172, 229) 100%)",
+        background: "linear-gradient(135deg",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",

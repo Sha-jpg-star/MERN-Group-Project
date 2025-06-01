@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Container,
   TextField,
@@ -10,157 +9,117 @@ import {
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
-const LoginPatients = () => {
+const LoginDoctors = () => {
   const navigate = useNavigate();
 
-  const handlePatientLogin = () => {
-    // You can add form validation here
-    navigate("/DashboardPatients"); // Redirect to patient dashboard
+  const handleDoctorLogin = () => {
+    navigate("/DashboardDoctors");
   };
 
   return (
     <Container
+      maxWidth={false}
+      disableGutters
       style={{
-        textAlign: "center",
-        marginTop: "50px",
-        backgroundColor: "rgb(162, 241, 255)",
-        padding: "30px",
-        marginBottom: "50px",
+        minHeight: "100vh",
+        background: "linear-gradient(135deg",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        padding: "20px",
       }}
     >
-      {/* Header */}
       <Box
         sx={{
-          backgroundColor: "rgb(31, 1, 139)",
-          padding: "20px",
-          borderRadius: "5px",
-          boxShadow: "0px 4px 10px rgba(24, 7, 250, 0.77)",
+          background: "rgba(255, 255, 255, 0.25)",
+          boxShadow: "0 8px 32px 0 rgba(31, 38, 135, 0.37)",
+          backdropFilter: "blur(10px)",
+          WebkitBackdropFilter: "blur(10px)",
+          borderRadius: "20px",
+          padding: "40px",
+          width: "100%",
+          maxWidth: "400px",
+          textAlign: "center",
         }}
       >
         <img
-          src="/landingPageIcon2.png"
-          alt="HMS Logo"
-          style={{ height: "50px", borderRadius: "50%" }}
+          src="/adminIcon2.png"
+          alt="Doctor Icon"
+          style={{ width: "60px", marginBottom: "20px" }}
         />
-        <Typography variant="h4" color="white" sx={{ fontWeight: "bold" }}>
-          MediCare HMS
+        <Typography variant="h5" sx={{ fontWeight: "bold", mb: 1 }}>
+          You log as a Patient
         </Typography>
-      </Box>
-
-      <Box>
-        <Typography
-          sx={{ fontSize: "18px", fontWeight: "italic", marginTop: "25px" }}
-        >
-          Your gateway to seamless healthcare management. Log in and take
-          control of your workflow effortlessly.
+        <Typography variant="body2" sx={{ mb: 3 }}>
+          Login in and take control of your workflow effortlessly
         </Typography>
-      </Box>
 
-      {/* Login Form */}
-      <Container sx={{ marginBottom: "50px" }}>
-        <Container
-          maxWidth="xs"
-          style={{ textAlign: "center", marginTop: "50px" }}
+        <TextField
+          label="Email or Username"
+          variant="outlined"
+          fullWidth
+          margin="normal"
+        />
+        <TextField
+          label="Password"
+          type="password"
+          variant="outlined"
+          fullWidth
+          margin="normal"
+        />
+        <FormControlLabel
+          control={<Checkbox />}
+          label="Remember Username"
+          sx={{ mt: 1 }}
+        />
+
+        <Button
+          fullWidth
+          sx={{
+            mt: 2,
+            py: 1.5,
+            backgroundColor: "blue",
+            color: "#fff",
+            fontWeight: "bold",
+            "&:hover": {
+              backgroundColor: "rgb(88, 115, 225)",
+            },
+            boxShadow: "none",
+          }}
+          onClick={handleDoctorLogin}
         >
-          <Box
-            sx={{
-              backgroundColor: "rgb(180, 194, 255)",
-              padding: "30px",
-              marginTop: "20px",
-              borderRadius: "10px",
-              boxShadow: "0px 4px 10px rgb(0, 0, 0)",
-            }}
+          LOGIN
+        </Button>
+
+        <Typography variant="body2" sx={{ mt: 2 }}>
+          <a
+            href="./login"
+            style={{ color: "#0d47a1", textDecoration: "none" }}
           >
-            <img
-              src="/adminIcon2.png"
-              alt="Patient Icon"
-              style={{ height: "40px", marginBottom: "10px" }}
-            />
-            <Typography variant="h6" color="black" sx={{ fontWeight: "bold" }}>
-              You log as a Patient
-            </Typography>
-
-            <TextField
-              label="Username / Email"
-              variant="outlined"
-              fullWidth
-              margin="normal"
-            />
-            <TextField
-              label="Password"
-              type="password"
-              variant="outlined"
-              fullWidth
-              margin="normal"
-            />
-            <FormControlLabel
-              control={<Checkbox />}
-              label="Remember Username"
-            />
-
-            <Button
-              onClick={handlePatientLogin}
-              fullWidth
-              sx={{
-                marginTop: "15px",
-                padding: "10px",
-                color: "white",
-                backgroundColor: "rgb(199, 4, 37)",
-                boxShadow: "0px 4px 10px rgb(0, 22, 92)",
-              }}
-            >
-              LOGIN
-            </Button>
-
-            <Typography variant="body2" sx={{ marginTop: "10px" }}>
-              <a
-                href="./login"
-                style={{ textDecoration: "none", color: "darkblue" }}
-              >
-                Forgotten your username or password?
-              </a>
-            </Typography>
-
-            <Button
-              variant="contained"
-              fullWidth
-              sx={{
-                marginTop: "15px",
-                padding: "10px",
-                color: "white",
-                backgroundColor: "rgb(126, 124, 124)",
-              }}
-            >
-              LOG IN AS A GUEST
-            </Button>
-          </Box>
-        </Container>
-      </Container>
-
-      {/* Footer */}
-      <Box
-        sx={{
-          marginTop: "20px",
-          padding: "20px",
-          backgroundColor: "rgb(24, 24, 133)",
-          borderRadius: "5px",
-          color: "white",
-        }}
-      >
-        <img
-          src="/landingPageIcon2.png"
-          alt="HMS Logo"
-          style={{ height: "30px" }}
-        />
-        <Typography variant="body2">
-          MediCare - Hospital Management System
+            Forgot your username or password?
+          </a>
         </Typography>
-        <Typography variant="body2">
-          © 2024 - MediCare ALL RIGHTS RESERVED.
-        </Typography>
+
+        <Button
+          fullWidth
+          variant="outlined"
+          sx={{
+            mt: 2,
+            py: 1.5,
+            borderColor: "navy",
+            color: "navy",
+            fontWeight: "bold",
+            "&:hover": {
+              borderColor: "rgb(67, 113, 205)",
+              backgroundColor: "#e8f0fe",
+            },
+          }}
+        >
+          LOG IN AS A GUEST
+        </Button>
       </Box>
     </Container>
   );
 };
 
-export default LoginPatients;
+export default LoginDoctors;
