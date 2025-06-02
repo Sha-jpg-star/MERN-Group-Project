@@ -32,6 +32,7 @@ const LoginDoctors = () => {
       <Box
         sx={{
 <<<<<<< HEAD
+<<<<<<< HEAD
           background: "rgba(255, 255, 255, 0.25)",
           boxShadow: "0 8px 32px 0 rgba(31, 38, 135, 0.37)",
           backdropFilter: "blur(10px)",
@@ -42,6 +43,8 @@ const LoginDoctors = () => {
           maxWidth: "400px",
           textAlign: "center",
 =======
+=======
+>>>>>>> 4364c48d393e9f03f11a5e892ae0cdfa7c535b17
           backgroundColor: "rgb(58, 11, 224)",
           padding: "20px",
           borderRadius: "5px",

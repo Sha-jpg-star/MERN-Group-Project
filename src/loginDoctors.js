@@ -23,7 +23,11 @@ const LoginDoctors = () => {
       style={{
         minHeight: "100vh",
 <<<<<<< HEAD
+<<<<<<< HEAD
         background: "linear-gradient(135deg",
+=======
+        background: "linear-gradient(135deg,blue 0%,rgb(239, 244, 253) 100%)",
+>>>>>>> 4364c48d393e9f03f11a5e892ae0cdfa7c535b17
 =======
         background: "linear-gradient(135deg,blue 0%,rgb(239, 244, 253) 100%)",
 >>>>>>> 4364c48d393e9f03f11a5e892ae0cdfa7c535b17
