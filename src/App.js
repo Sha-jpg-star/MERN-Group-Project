@@ -21,6 +21,7 @@ import BookAppointments from "./BookAppointments";
 import PatientNotifications from "./PatientNotification";
 import PatientMyProfile from "./PatientMyProfile";
 import AdminAppointments from "./AdminAppointments";
+import Patients from "./Patients";
 
 function App() {
   return (
@@ -54,6 +55,7 @@ function App() {
         />
         <Route path="/PatientMyProfile" element={<PatientMyProfile />} />
         <Route path="/AdminAppointments" element={<AdminAppointments />} />
+        <Route path="/Patients" element={<Patients />} />
       </Routes>
     </Router>
   );

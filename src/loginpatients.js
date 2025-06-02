@@ -31,6 +31,7 @@ const LoginDoctors = () => {
     >
       <Box
         sx={{
+<<<<<<< HEAD
           background: "rgba(255, 255, 255, 0.25)",
           boxShadow: "0 8px 32px 0 rgba(31, 38, 135, 0.37)",
           backdropFilter: "blur(10px)",
@@ -40,6 +41,12 @@ const LoginDoctors = () => {
           width: "100%",
           maxWidth: "400px",
           textAlign: "center",
+=======
+          backgroundColor: "rgb(58, 11, 224)",
+          padding: "20px",
+          borderRadius: "5px",
+          boxShadow: "0px 4px 10px rgba(24, 7, 250, 0.77)",
+>>>>>>> 4364c48d393e9f03f11a5e892ae0cdfa7c535b17
         }}
       >
         <img
@@ -88,6 +95,7 @@ const LoginDoctors = () => {
           }}
           onClick={handleDoctorLogin}
         >
+<<<<<<< HEAD
           LOGIN
         </Button>
 
@@ -98,6 +106,104 @@ const LoginDoctors = () => {
           >
             Forgot your username or password?
           </a>
+=======
+          <Box
+            sx={{
+              backgroundColor: "rgb(91, 244, 255)",
+              padding: "30px",
+              marginTop: "20px",
+              borderRadius: "10px",
+              boxShadow: "0px 4px 10px rgb(0, 0, 0)",
+            }}
+          >
+            <img
+              src="/adminIcon2.png"
+              alt="Patient Icon"
+              style={{ height: "40px", marginBottom: "10px" }}
+            />
+            <Typography variant="h6" color="black" sx={{ fontWeight: "bold" }}>
+              You log as a Patient
+            </Typography>
+
+            <TextField
+              label="Username / Email"
+              variant="outlined"
+              fullWidth
+              margin="normal"
+            />
+            <TextField
+              label="Password"
+              type="password"
+              variant="outlined"
+              fullWidth
+              margin="normal"
+            />
+            <FormControlLabel
+              sx={{ mr: "120px" }}
+              control={<Checkbox />}
+              label="Remember Username"
+            />
+
+            <Button
+              onClick={handlePatientLogin}
+              fullWidth
+              sx={{
+                marginTop: "15px",
+                padding: "10px",
+                color: "white",
+                backgroundColor: "rgb(223, 39, 70)",
+                boxShadow: "0px 4px 10px rgb(0, 22, 92)",
+              }}
+            >
+              LOGIN
+            </Button>
+
+            <Typography variant="body2" sx={{ marginTop: "10px" }}>
+              <a
+                href="./login"
+                style={{ textDecoration: "none", color: "darkblue" }}
+              >
+                Forgotten your username or password?
+              </a>
+            </Typography>
+
+            <Button
+              variant="contained"
+              fullWidth
+              sx={{
+                marginTop: "15px",
+                padding: "10px",
+                color: "white",
+                backgroundColor: "rgb(126, 124, 124)",
+              }}
+            >
+              Continue with Google
+            </Button>
+          </Box>
+        </Container>
+      </Container>
+
+      {/* Footer */}
+      <Box
+        sx={{
+          marginTop: "20px",
+          padding: "20px",
+          backgroundColor: "rgb(24, 24, 133)",
+          borderRadius: "5px",
+          color: "white",
+        }}
+      >
+        <img
+          src="/landingPageIcon2.png"
+          alt="HMS Logo"
+          style={{ height: "30px" }}
+        />
+        <Typography variant="body2">
+          MediCare - Hospital Management System
+        </Typography>
+        <Typography variant="body2">
+          © 2024 - MediCare ALL RIGHTS RESERVED.
+>>>>>>> 4364c48d393e9f03f11a5e892ae0cdfa7c535b17
         </Typography>
 
         <Button

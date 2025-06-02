@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import {
   Box,
   Typography,
-  Paper,
   Button,
   Dialog,
   DialogTitle,
@@ -16,7 +15,7 @@ import Sidebar from "./Sidebar";
 
 const AdminLogout = () => {
   const navigate = useNavigate();
-  const [openDialog, setOpenDialog] = useState(true);
+  const [openDialog] = useState(true);
 
   const handleConfirm = () => {
     // Clear token and navigate

@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Typography,
   Drawer,
@@ -10,7 +9,6 @@ import {
   Grid,
   Card,
   CardContent,
-  Divider,
   Avatar,
 } from "@mui/material";
 
@@ -49,7 +47,7 @@ const DashboardPatients = () => {
           width: 250,
           "& .MuiDrawer-paper": {
             width: 250,
-            backgroundColor: "blue",
+            backgroundColor: "rgb(3, 0, 172)",
             color: "#fff",
             display: "flex",
             flexDirection: "column",

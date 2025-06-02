@@ -22,7 +22,11 @@ const LoginDoctors = () => {
       disableGutters
       style={{
         minHeight: "100vh",
+<<<<<<< HEAD
         background: "linear-gradient(135deg",
+=======
+        background: "linear-gradient(135deg,blue 0%,rgb(239, 244, 253) 100%)",
+>>>>>>> 4364c48d393e9f03f11a5e892ae0cdfa7c535b17
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
@@ -70,7 +74,7 @@ const LoginDoctors = () => {
         <FormControlLabel
           control={<Checkbox />}
           label="Remember Me"
-          sx={{ mt: 1 }}
+          sx={{ mt: 1, mr: "250px" }}
         />
 
         <Button
@@ -78,11 +82,11 @@ const LoginDoctors = () => {
           sx={{
             mt: 2,
             py: 1.5,
-            backgroundColor: "blue",
+            backgroundColor: "rgb(1, 20, 95)",
             color: "#fff",
             fontWeight: "bold",
             "&:hover": {
-              backgroundColor: "rgb(88, 115, 225)",
+              backgroundColor: "rgb(0, 41, 206)",
             },
             boxShadow: "none",
           }}

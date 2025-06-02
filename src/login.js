@@ -66,7 +66,7 @@ const Login = () => {
             style={{ height: "40px", marginBottom: "10px" }}
           />
           <Typography variant="h6" sx={{ fontWeight: "bold", mb: 2 }}>
-            Admin
+            You log as Admin
           </Typography>
 
           <TextField
@@ -86,7 +86,7 @@ const Login = () => {
           <FormControlLabel
             control={<Checkbox />}
             label="Remember Username"
-            sx={{ mt: 1 }}
+            sx={{ mt: 1, mr: "200px" }}
           />
 
           <Button
@@ -97,7 +97,7 @@ const Login = () => {
               backgroundColor: "#6a1b9a",
               color: "#fff",
               fontWeight: "bold",
-              '&:hover': {
+              "&:hover": {
                 backgroundColor: "#4a148c",
               },
             }}
@@ -124,12 +124,12 @@ const Login = () => {
               borderColor: "#888",
               color: "#444",
               fontWeight: "bold",
-              '&:hover': {
+              "&:hover": {
                 backgroundColor: "#f5f5f5",
               },
             }}
           >
-            LOG IN AS A GUEST
+            Continue with Google
           </Button>
         </Box>
 
