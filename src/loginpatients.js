@@ -9,11 +9,11 @@ import {
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
-const LoginDoctors = () => {
+const LoginPatients = () => {
   const navigate = useNavigate();
 
   const handleDoctorLogin = () => {
-    navigate("/DashboardDoctors");
+    navigate("/DashboardPatients");
   };
 
   return (
@@ -22,15 +22,7 @@ const LoginDoctors = () => {
       disableGutters
       style={{
         minHeight: "100vh",
-<<<<<<< HEAD
-<<<<<<< HEAD
-        background: "linear-gradient(135deg",
-=======
-        background: "linear-gradient(135deg,blue 0%,rgb(239, 244, 253) 100%)",
->>>>>>> 4364c48d393e9f03f11a5e892ae0cdfa7c535b17
-=======
-        background: "linear-gradient(135deg,blue 0%,rgb(239, 244, 253) 100%)",
->>>>>>> 4364c48d393e9f03f11a5e892ae0cdfa7c535b17
+        background: "linear-gradient(135deg, blue 0%, rgb(239, 244, 253) 100%)",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
@@ -52,7 +44,7 @@ const LoginDoctors = () => {
       >
         <img
           src="/adminIcon2.png"
-          alt="Doctor Icon"
+          alt="Patient Icon"
           style={{ width: "60px", marginBottom: "20px" }}
         />
         <Typography variant="h5" sx={{ fontWeight: "bold", mb: 1 }}>
@@ -130,5 +122,5 @@ const LoginDoctors = () => {
   );
 };
 
-export default LoginDoctors;
+export default LoginPatients;
 
