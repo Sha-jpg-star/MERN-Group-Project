@@ -1,8 +1,8 @@
-//backend/route/PatientsRoutes.js
+//Patients.js
 
 const express = require("express");
 const router = express.Router();
-const Patients = require("../models/Patients");
+const Patients = require("../Model/Patients");
 
 //GET all patients
 router.get("/", async (req,res) =>{

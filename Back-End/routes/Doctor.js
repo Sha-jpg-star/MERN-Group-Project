@@ -1,8 +1,8 @@
-// backend/routes/doctorRoutes.js
+// doctor.js
 
 const express = require("express");
 const router = express.Router();
-const Doctor = require("../models/Doctor"); 
+const Doctor = require("../Model/Doctor"); 
 
 
 // GET all doctors

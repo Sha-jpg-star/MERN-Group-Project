@@ -1,56 +1,60 @@
-
-import React from "react";
+import { useState, useEffect } from "react";
 import { Box, Typography, Grid, Card, CardContent, Avatar, List, ListItem, ListItemText } from "@mui/material";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
-
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import PeopleIcon from "@mui/icons-material/People";
 import LocalHospitalIcon from "@mui/icons-material/LocalHospital";
-import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
+import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
 import Sidebar from "./Sidebar"; 
 
-const patientData = [
-  { name: "Jan", recovered: 150, death: 20 },
-  { name: "Feb", recovered: 200, death: 30 },
-  { name: "Mar", recovered: 180, death: 25 },
-  { name: "Apr", recovered: 220, death: 35 },
-  { name: "May", recovered: 250, death: 40 },
-  { name: "Jun", recovered: 270, death: 45 },
-  { name: "Jul", recovered: 135, death: 15 },
-  { name: "Aug", recovered: 290, death: 20 },
-  { name: "Sep", recovered: 290, death: 23 },
-  { name: "Oct", recovered: 290, death: 24 },
-  { name: "Nov", recovered: 80, death: 5 },
-  { name: "Dec", recovered: 600, death: 10 },
-];
-
 const appointments = [
-  { name: "Daniel Smith", time: "10:00 AM", status: "Accepted" },
-  { name: "Alice Harrow", time: "11:30 AM", status: "Pending" },
-  { name: "Robert Diaz", time: "1:00 PM", status: "Rejected" },
+  { name: "Niluka Dasuni", time: "10:00 AM", status: "Accepted" },
+  { name: "Shalini Himanjana", time: "11:30 AM", status: "Pending" },
+  { name: "Tharukshi Hansamali", time: "1:00 PM", status: "Rejected" },
 ];
 
 const recentPatients = [
-  { name: "Glenn Stanley", gender: "Male", weight: "75kg", status: "Outpatient" },
-  { name: "Evelyn Thomas", gender: "Female", weight: "68kg", status: "Inpatient" },
+  { name: "G.K.Fernando", gender: "Male", weight: "75kg", status: "Outpatient" },
+  { name: "U.L.Chandralatha", gender: "Female", weight: "68kg", status: "Inpatient" },
 ];
 
 const Dashboard = () => {
+  const [patientData, setPatientData] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:5000/api/stats/monthly-stats")
+      .then((res) => res.json())
+      .then((data) => {
+        // Map your API data to the shape recharts expects
+        const formatted = data.map(item => ({
+          name: item.month,
+          Registered: item.patients,
+          Income: item.income,
+        }));
+        setPatientData(formatted);
+      })
+      .catch(err => {
+        console.error("Error fetching patient stats:", err);
+        // fallback data or empty array
+        setPatientData([]);
+      });
+  }, []);
+
   return (
     <Box sx={{ display: "flex" }}>
       <Sidebar />
 
       <Box sx={{ flexGrow: 1, p: 3, backgroundColor: "rgb(218, 251, 253)" }}>
         <Typography variant="h4" sx={{ fontWeight: "bold", marginBottom: "20px" }}>
-          Hospital Dashboard
+          Welcome To Medicare....
         </Typography>
 
         <Grid container spacing={3}>
           {[
-            { title: "New Patients", value: 45, icon: <CalendarTodayIcon />, color: "#007bff" },
+            { title: " Patients", value: 45, icon: <CalendarTodayIcon />, color: "#007bff" },
             { title: "Doctors", value: 23, icon: <PeopleIcon />, color: "#28a745" },
-            { title: "Operations", value: 14, icon: <LocalHospitalIcon />, color: "#dc3545" },
-            { title: "Income", value: "$5728", icon: <MonetizationOnIcon />, color: "#ffc107" },
+            { title: "Appointment", value: 14, icon: <LocalHospitalIcon />, color: "#dc3545" },
+            { title: "Income", value: "Rs.5728", icon: <AccountBalanceWalletIcon />, color: "#ffc107" },
           ].map((stat, index) => (
             <Grid item xs={12} sm={6} md={3} key={index}>
               <Card sx={{ display: "flex", alignItems: "center", padding: "15px", backgroundColor: stat.color, color: "#fff" }}>
@@ -67,12 +71,26 @@ const Dashboard = () => {
         <Box sx={{ marginTop: "20px", padding: "20px", backgroundColor: "#fff", borderRadius: "10px", boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)" }}>
           <Typography variant="h6">Patient Status</Typography>
           <ResponsiveContainer width="100%" height={250}>
-            <LineChart data={patientData}>
+            <LineChart data={patientData.length ? patientData : [
+              { name: "Jan", Registered: 150, Income: 20 },
+              { name: "Feb", Registered: 200, Income: 30 },
+              { name: "March", Registered: 50, Income: 40 },
+              { name: "April", Registered: 100, Income: 50 },
+              { name: "May", Registered: 150, Income: 20 },
+              { name: "June", Registered: 200, Income: 20 },
+              { name: "July", Registered: 150, Income: 70 },
+              { name: "Aug", Registered: 50, Income: 20 },
+              { name: "Sep", Registered: 40, Income: 20 },
+              { name: "Oct", Registered: 30, Income: 20 },
+              { name: "Nov", Registered: 150, Income: 80 },
+              { name: "Dec", Registered: 120, Income: 20 },
+              // fallback hardcoded data in case API call fails or is empty
+            ]}>
               <XAxis dataKey="name" />
               <YAxis />
               <Tooltip />
-              <Line type="monotone" dataKey="recovered" stroke="#007bff" />
-              <Line type="monotone" dataKey="death" stroke="#dc3545" />
+              <Line type="monotone" dataKey="Registered" stroke="#007bff" />
+              <Line type="monotone" dataKey="Income" stroke="#dc3545" />
             </LineChart>
           </ResponsiveContainer>
         </Box>

@@ -1,4 +1,4 @@
-// backend/models/Doctor.js
+// Doctor.js
 
 const mongoose = require("mongoose");
 

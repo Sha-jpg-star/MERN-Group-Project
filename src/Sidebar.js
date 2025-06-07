@@ -1,37 +1,30 @@
-import React from "react";
-import {
-  Drawer,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  Typography,
-  Box,
-} from "@mui/material";
-
+import {Drawer,List,ListItem,ListItemIcon,ListItemText,Typography,Box} from "@mui/material";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import PeopleIcon from "@mui/icons-material/People";
+import ReceiptIcon from "@mui/icons-material/Receipt";
 import PersonIcon from "@mui/icons-material/Person";
+import HotelIcon from "@mui/icons-material/Hotel";
 import EventAvailableIcon from "@mui/icons-material/EventAvailable";
 import MessageIcon from "@mui/icons-material/Message";
 import SettingsIcon from "@mui/icons-material/Settings";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
-
+import LocalPharmacyIcon from "@mui/icons-material/LocalPharmacy";
+import AccountCircleIcon from"@mui/icons-material/AccountCircle";
 import { Link } from "react-router-dom";
 
-const Sidebar = () => {
-  const menuItems = [
-    { text: "Dashboard", path: "/Dashboard", icon: <DashboardIcon /> },
-    { text: "Doctors Management", path: "/Doctors", icon: <PeopleIcon /> },
-    { text: "Patients Management", path: "/Patients", icon: <PersonIcon /> },
-    {
-      text: "View All Appointment",
-      path: "/AdminAppointments",
-      icon: <EventAvailableIcon />,
-    },
-    { text: "Messages", path: "/AdminMessages", icon: <MessageIcon /> },
-    { text: "Settings", path: "/AdminSetting", icon: <SettingsIcon /> },
-    { text: "Logout", path: "/AdminLogout", icon: <ExitToAppIcon /> },
+const Sidebar=()=>{
+  const menu = [
+    { text:"Dashboard",path:"/Dashboard",icon:<DashboardIcon /> },        //Sidebar menu
+    {text: "Doctors Management",path:"/Doctors", icon:<PeopleIcon /> },
+    {text: "Patients Management",path:"/Patients",icon:<PersonIcon /> },
+    {text: "Appointment",path:"/AdminAppointments",icon:<EventAvailableIcon />,},
+    {text:"Billing",Path:"/Billing",icon:<ReceiptIcon/>},
+    {text:"Ward",Path:"/Ward",icon:<HotelIcon/>},
+    {text:"Pharmacy",Path:"/Pharmacy",icon:<LocalPharmacyIcon />},
+    {text:"Messages", path: "/AdminMessages", icon:<MessageIcon /> },
+    {text:"Settings", path: "/AdminSetting", icon:<SettingsIcon /> },
+    {text:"Profile",Path:"/Profile",icon:<AccountCircleIcon/>},
+    {text:"Logout", path: "/AdminLogout", icon:<ExitToAppIcon /> },
   ];
 
   return (
@@ -69,7 +62,7 @@ const Sidebar = () => {
 
       {/* Menu Items */}
       <List sx={{ width: "100%" }}>
-        {menuItems.map((item, index) => (
+        {menu.map((item, index) => (
           <ListItem
             button
             key={index}

@@ -1,8 +1,8 @@
-// routes/appointmentRoutes.js
+//appointmentRoutes.js
 
 const express = require("express");
 const router = express.Router();
-const Appointment = require("../models/Appointment");
+const Appointment = require("../Model/Appointment");
 
 // Create new appointment
 router.post("/", async (req, res) => {

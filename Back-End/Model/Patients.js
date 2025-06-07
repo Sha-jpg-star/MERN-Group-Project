@@ -1,4 +1,4 @@
-//backend/models/Patients.js
+//Patients.js
 
 const mongoose = require("mongoose");
 

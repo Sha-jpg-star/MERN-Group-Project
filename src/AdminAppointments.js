@@ -1,133 +1,207 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
-  Box,
-  Typography,
-  Grid,
-  Card,
-  CardContent,
+  Container,
   TextField,
-  MenuItem,
-  Select,
-  InputLabel,
-  FormControl,
-  TablePagination,
-  TableContainer,
-  Table,
-  TableHead,
-  TableRow,
-  TableCell,
-  TableBody,
+  Button,
+  Typography,
   Paper,
+  Grid,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
 } from "@mui/material";
-import Sidebar from "./Sidebar";
 import axios from "axios";
 
-const AdminAppointments = () => {
-  const [appointments, setAppointments] = useState([]);
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
-  const [statusFilter, setStatusFilter] = useState("");
 
-  // Mock fetch
-  useEffect(() => {
-    axios
-      .get("http://localhost:5000/api/appointments") // Replace with real endpoint
-      .then((res) => setAppointments(res.data))
-      .catch((err) => console.error(err));
-  }, []);
+const BookAppointments = () => {
+  const [formData, setFormData] = useState({
+    patientName: "",
+    email: "",
+    phone: "",
+    doctor: "",
+    date: "",
+    time: "",
+    symptoms: "",
+  });
 
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
+  const [appointmentId, setAppointmentId] = useState(null);
+  const [editMode, setEditMode] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [openView, setOpenView] = useState(false);
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      if (editMode && appointmentId) {
+        await axios.put(`http://localhost:5000/api/appointments/${appointmentId}`, formData);
+        alert("Appointment updated successfully!");
+        setEditMode(false);
+        setSuccess(true);
+      } else {
+        const res = await axios.post("http://localhost:5000/api/appointments", formData);
+        setAppointmentId(res.data._id);
+        alert("Appointment booked successfully!");
+        setSuccess(true);
+      }
+    } catch (err) {
+      alert("Error submitting form");
+    }
   };
 
-  const filteredAppointments = statusFilter
-    ? appointments.filter((item) => item.status === statusFilter)
-    : appointments;
+  const handleViewOpen = () => setOpenView(true);
+  const handleViewClose = () => setOpenView(false);
+
+  const handleEdit = () => {
+    setEditMode(true);
+    setOpenView(false);
+    setSuccess(false);
+  };
+
+  const handleDelete = async () => {
+    try {
+      await axios.delete(`http://localhost:5000/api/appointments/${appointmentId}`);
+      alert("Appointment deleted successfully!");
+      setFormData({
+        patientName: "",
+        email: "",
+        phone: "",
+        doctor: "",
+        date: "",
+        time: "",
+        symptoms: "",
+      });
+      setSuccess(false);
+      setAppointmentId(null);
+      setOpenView(false);
+    } catch (err) {
+      alert("Delete failed");
+    }
+  };
 
   return (
-    <Box sx={{ display: "flex" }}>
-      <Sidebar />
-      <Box sx={{ flexGrow: 1, p: 3, backgroundColor: "#dafbfd" }}>
-        <Typography variant="h4" sx={{ fontWeight: "bold", mb: 3 }}>
-          Manage All Appointments
+    <Container maxWidth="sm" sx={{ mt: 5 }}>
+  
+      <Paper elevation={3} sx={{ p: 4 }}>
+        <Typography variant="h5" gutterBottom>
+          {editMode ? "Update Appointment" : "Book Appointment"}
         </Typography>
-
-        {/* Statistics Cards */}
-        <Grid container spacing={2}>
-          <Grid item xs={12} sm={6} md={3}>
-            <Card>
-              <CardContent>
-                <Typography>Total Appointments</Typography>
-                <Typography variant="h6">{appointments.length}</Typography>
-              </CardContent>
-            </Card>
+        <form onSubmit={handleSubmit}>
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <TextField
+                fullWidth
+                label="Patient Name"
+                name="patientName"
+                value={formData.patientName}
+                onChange={handleChange}
+                required
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                fullWidth
+                label="Email"
+                name="email"
+                type="email"
+                value={formData.email}
+                onChange={handleChange}
+                required
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                fullWidth
+                label="Phone"
+                name="phone"
+                value={formData.phone}
+                onChange={handleChange}
+                required
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                fullWidth
+                label="Preferred Doctor"
+                name="doctor"
+                value={formData.doctor}
+                onChange={handleChange}
+                required
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <TextField
+                fullWidth
+                label="Date"
+                name="date"
+                type="date"
+                value={formData.date}
+                onChange={handleChange}
+                InputLabelProps={{ shrink: true }}
+                required
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <TextField
+                fullWidth
+                label="Time"
+                name="time"
+                type="time"
+                value={formData.time}
+                onChange={handleChange}
+                InputLabelProps={{ shrink: true }}
+                required
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                fullWidth
+                multiline
+                rows={3}
+                label="Symptoms / Notes"
+                name="symptoms"
+                value={formData.symptoms}
+                onChange={handleChange}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              {!success ? (
+                <Button variant="contained" color="primary" type="submit" fullWidth>
+                  {editMode ? "Save Changes" : "Book Now"}
+                </Button>
+              ) : (
+                <Button variant="contained" color="secondary" fullWidth onClick={handleViewOpen}>
+                  View
+                </Button>
+              )}
+            </Grid>
           </Grid>
-          {/* Add more cards here if needed */}
-        </Grid>
+        </form>
+      </Paper>
 
-        {/* Filter Section */}
-        <Box mt={3} display="flex" gap={2} alignItems="center">
-          <TextField label="Search by Patient" variant="outlined" />
-          <FormControl>
-            <InputLabel>Status</InputLabel>
-            <Select
-              value={statusFilter}
-              onChange={(e) => setStatusFilter(e.target.value)}
-              label="Status"
-              sx={{ width: 150 }}
-            >
-              <MenuItem value="">All</MenuItem>
-              <MenuItem value="Pending">Pending</MenuItem>
-              <MenuItem value="Completed">Completed</MenuItem>
-              <MenuItem value="Cancelled">Cancelled</MenuItem>
-            </Select>
-          </FormControl>
-        </Box>
-
-        {/* Appointments Table */}
-        <TableContainer component={Paper} sx={{ mt: 3 }}>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>Patient</TableCell>
-                <TableCell>Doctor</TableCell>
-                <TableCell>Date</TableCell>
-                <TableCell>Time</TableCell>
-                <TableCell>Status</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {filteredAppointments
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((appointment, index) => (
-                  <TableRow key={index}>
-                    <TableCell>{appointment.patientName}</TableCell>
-                    <TableCell>{appointment.doctorName}</TableCell>
-                    <TableCell>{appointment.date}</TableCell>
-                    <TableCell>{appointment.time}</TableCell>
-                    <TableCell>{appointment.status}</TableCell>
-                  </TableRow>
-                ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-
-        <TablePagination
-          component="div"
-          count={filteredAppointments.length}
-          page={page}
-          onPageChange={handleChangePage}
-          rowsPerPage={rowsPerPage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-        />
-      </Box>
-    </Box>
+      <Dialog open={openView} onClose={handleViewClose} fullWidth>
+        <DialogTitle>Appointment Details</DialogTitle>
+        <DialogContent>
+          <Typography><strong>Name:</strong> {formData.patientName}</Typography>
+          <Typography><strong>Email:</strong> {formData.email}</Typography>
+          <Typography><strong>Phone:</strong> {formData.phone}</Typography>
+          <Typography><strong>Doctor:</strong> {formData.doctor}</Typography>
+          <Typography><strong>Date:</strong> {formData.date}</Typography>
+          <Typography><strong>Time:</strong> {formData.time}</Typography>
+          <Typography><strong>Symptoms:</strong> {formData.symptoms}</Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleEdit} color="primary">Edit</Button>
+          <Button onClick={handleDelete} color="error">Delete</Button>
+          <Button onClick={handleViewClose}>Close</Button>
+        </DialogActions>
+      </Dialog>
+    </Container>
   );
 };
 
-export default AdminAppointments;
+export default BookAppointments;
