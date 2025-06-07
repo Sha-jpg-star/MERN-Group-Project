@@ -5,7 +5,7 @@ const cors = require("cors");
 const doctorRoutes = require("./routes/Doctor");
 const appointmentRoutes = require("./routes/Appointment");
 const patientsRoutes = require("./routes/Patients");
-
+const adminRoutes = require("./routes/admin.routes");
 
 const app = express();
 
@@ -25,8 +25,8 @@ mongoose
 // Routes
 app.use("/api/doctors", doctorRoutes);
 app.use("/api/appointments", appointmentRoutes);
-app.use("/api/patients", patientsRoutes); 
-      
+app.use("/api/patients", patientsRoutes);
+app.use("/api/admin", adminRoutes);
 
 // Default route
 app.get("/", (req, res) => {
@@ -34,5 +34,5 @@ app.get("/", (req, res) => {
 });
 
 // Start server
-const PORT=process.env.PORT||5000;
-app.listen(PORT,()=>console.log('Server running on port'));
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log("Server running on port"));
