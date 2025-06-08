@@ -236,9 +236,9 @@ function Doctors() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {doctorList.map((doctor) => (
+              {doctorList.map((doctor,index) => (
                 <TableRow key={doctor._id}>
-                  <TableCell>{doctor._id}</TableCell>
+                  <TableCell>{index + 1}</TableCell>
                   <TableCell>{doctor.DoctorName}</TableCell>
                   <TableCell>{doctor.Specialization}</TableCell>
                   <TableCell>{doctor.WeeklySchedule}</TableCell>

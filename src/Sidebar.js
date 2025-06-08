@@ -14,17 +14,17 @@ import { Link } from "react-router-dom";
 
 const Sidebar=()=>{
   const menu = [
-    { text:"Dashboard",path:"/Dashboard",icon:<DashboardIcon /> },        //Sidebar menu
-    {text: "Doctors Management",path:"/Doctors", icon:<PeopleIcon /> },
-    {text: "Patients Management",path:"/Patients",icon:<PersonIcon /> },
-    {text: "Appointment",path:"/AdminAppointments",icon:<EventAvailableIcon />,},
-    {text:"Billing",Path:"/Billing",icon:<ReceiptIcon/>},
-    {text:"Ward",Path:"/Ward",icon:<HotelIcon/>},
-    {text:"Pharmacy",Path:"/Pharmacy",icon:<LocalPharmacyIcon />},
-    {text:"Messages", path: "/AdminMessages", icon:<MessageIcon /> },
-    {text:"Settings", path: "/AdminSetting", icon:<SettingsIcon /> },
-    {text:"Profile",Path:"/Profile",icon:<AccountCircleIcon/>},
-    {text:"Logout", path: "/AdminLogout", icon:<ExitToAppIcon /> },
+    { text: "Dashboard", path: "/Dashboard", icon: <DashboardIcon /> },
+  { text: "Doctors Management", path: "/Doctors", icon: <PeopleIcon /> },
+  { text: "Patients Management", path: "/Patients", icon: <PersonIcon /> },
+  { text: "Appointment", path: "/AdminAppointments", icon: <EventAvailableIcon /> },
+  { text: "Billing", path: "/Billing", icon: <ReceiptIcon /> },
+  { text: "Ward", path: "/Ward", icon: <HotelIcon /> },
+  { text: "Pharmacy", path: "/Pharmacy", icon: <LocalPharmacyIcon /> },
+  { text: "Messages", path: "/AdminMessages", icon: <MessageIcon /> },
+  { text: "Settings", path: "/AdminSetting", icon: <SettingsIcon /> },
+  { text: "Profile", path: "/Profile", icon: <AccountCircleIcon /> },
+  { text: "Logout", path: "/AdminLogout", icon: <ExitToAppIcon /> },
   ];
 
   return (

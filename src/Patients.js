@@ -162,6 +162,7 @@ function Patients() {
           <Table>
             <TableHead sx={{ backgroundColor: "#f5f5f5" }}>
               <TableRow>
+                <TableCell><b>ID</b></TableCell>
                 <TableCell><b>Full Name</b></TableCell>
                 <TableCell><b>Age</b></TableCell>
                 <TableCell><b>Gender</b></TableCell>
@@ -180,6 +181,7 @@ function Patients() {
                     "&:hover": { backgroundColor: "#f0f0f0" },
                   }}
                 >
+                  <TableCell>{index + 1}</TableCell>
                   <TableCell>{patient.fullName}</TableCell>
                   <TableCell>{patient.age}</TableCell>
                   <TableCell>{patient.gender}</TableCell>
