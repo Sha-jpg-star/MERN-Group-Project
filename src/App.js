@@ -23,6 +23,7 @@ import PatientMyProfile from "./PatientMyProfile";
 import AdminAppointments from "./AdminAppointments";
 import Patients from "./Patients";
 import Billing from "./Billing";
+import Ward from "./Ward";
 
 function App() {
   return (
@@ -58,6 +59,7 @@ function App() {
         <Route path="/AdminAppointments" element={<AdminAppointments />} />
         <Route path="/Patients" element={<Patients />} />
         <Route path="/Billing" element={<Billing />} />
+        <Route path="/Ward" element={<Ward />} />
       </Routes>
     </Router>
   );
