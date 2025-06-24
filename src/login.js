@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Container,
   TextField,
@@ -94,11 +93,11 @@ const Login = () => {
             sx={{
               mt: 2,
               py: 1.5,
-              backgroundColor: "#6a1b9a",
+              backgroundColor: "blue",
               color: "#fff",
               fontWeight: "bold",
               "&:hover": {
-                backgroundColor: "#4a148c",
+                backgroundColor: "lightblue",
               },
             }}
             onClick={handleAdminLogin}

@@ -1,73 +1,165 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
-  Box,
+  Container,
   Typography,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
   Paper,
-  List,
-  ListItem,
-  ListItemText,
-  Divider,
-  CircularProgress,
-  Alert,
+  TextField,
+  Button,
+  Box,
 } from "@mui/material";
 import axios from "axios";
-import Sidebar from "./Sidebar"; // assuming you have a sidebar component
+import Sidebar from "./Sidebar";
 
-const AdminMessages = () => {
-  const [messages, setMessages] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
+function MessagingDashboard() {
+  const [patients, setPatients] = useState([]);
+  const [doctors, setDoctors] = useState([]);
+  const [messageForm, setMessageForm] = useState({
+    name: "",
+    contact: "",
+    message: "",
+  });
 
   useEffect(() => {
-    axios
-      .get("/api/messages")
-      .then((res) => {
-        setMessages(res.data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        setError("Failed to fetch messages.");
-        setLoading(false);
-      });
+    fetchData();
   }, []);
 
+  const fetchData = () => {
+    axios.get("http://localhost:5000/api/patients").then((res) => setPatients(res.data));
+    axios.get("http://localhost:5000/api/doctors").then((res) => setDoctors(res.data));
+  };
+
+  const handleRowClick = (name, contact) => {
+    setMessageForm((prev) => ({
+      ...prev,
+      name,
+      contact,
+    }));
+  };
+
+  const handleInputChange = (e) => {
+    setMessageForm({ ...messageForm, [e.target.name]: e.target.value });
+  };
+
+  const handleSend = () => {
+    if (!messageForm.name || !messageForm.contact || !messageForm.message) {
+      alert("Please fill all fields");
+      return;
+    }
+
+    console.log("Message Sent:", messageForm);
+    alert("Message sent successfully!");
+    setMessageForm({ name: "", contact: "", message: "" });
+  };
+
   return (
-    <Box sx={{ display: "flex" }}>
+    <div style={{ display: "flex" }}>
       <Sidebar />
+      <Container sx={{ flex: 1, mt: 4 }}>
+        {/* 📨 Message Form */}
+        <Box component={Paper} sx={{ p: 3, mb: 4 }}>
+          <Typography variant="h6" fontWeight="bold" gutterBottom>
+            Send Message
+          </Typography>
+          <TextField
+            fullWidth
+            margin="normal"
+            label="Name"
+            name="name"
+            value={messageForm.name}
+            onChange={handleInputChange}
+            disabled
+          />
+          <TextField
+            fullWidth
+            margin="normal"
+            label="Contact Number"
+            name="contact"
+            value={messageForm.contact}
+            onChange={handleInputChange}
+            disabled
+          />
+          <TextField
+            fullWidth
+            margin="normal"
+            label="Message"
+            name="message"
+            value={messageForm.message}
+            onChange={handleInputChange}
+            multiline
+            rows={3}
+          />
+          <Button variant="contained" color="primary" onClick={handleSend} sx={{ mt: 2 }}>
+            Send
+          </Button>
+        </Box>
 
-      <Box sx={{ flexGrow: 1, p: 4, backgroundColor: "#f9f9f9" }}>
-        <Typography variant="h4" gutterBottom sx={{ fontWeight: "bold" }}>
-          Admin Messages
+        {/* 👨‍⚕️ Doctors Table */}
+        <Typography variant="h6" color="primary" fontWeight="bold" mb={1}>
+          Doctors
         </Typography>
-
-        <Paper elevation={3} sx={{ padding: 2 }}>
-          {loading ? (
-            <Box display="flex" justifyContent="center" mt={4}>
-              <CircularProgress />
-            </Box>
-          ) : error ? (
-            <Alert severity="error">{error}</Alert>
-          ) : messages.length === 0 ? (
-            <Typography>No messages found.</Typography>
-          ) : (
-            <List>
-              {messages.map((msg, index) => (
-                <React.Fragment key={msg._id || index}>
-                  <ListItem alignItems="flex-start">
-                    <ListItemText
-                      primary={`${msg.name} (${msg.email})`}
-                      secondary={msg.message}
-                    />
-                  </ListItem>
-                  {index < messages.length - 1 && <Divider />}
-                </React.Fragment>
+        <TableContainer component={Paper} sx={{ maxHeight: 200, overflow: "auto", mb: 4 }}>
+          <Table stickyHeader>
+            <TableHead>
+              <TableRow>
+                <TableCell>ID</TableCell>
+                <TableCell>Name</TableCell>
+                <TableCell>Contact</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {doctors.map((doc, index) => (
+                <TableRow
+                  key={doc._id}
+                  onClick={() => handleRowClick(doc.DoctorName, doc.EmergencyContact)}
+                  sx={{ cursor: "pointer", "&:hover": { backgroundColor: "#f9f9f9" } }}
+                >
+                  <TableCell>{index + 1}</TableCell>
+                  <TableCell>{doc.DoctorName}</TableCell>
+                  <TableCell>{doc.EmergencyContact}</TableCell>
+                </TableRow>
               ))}
-            </List>
-          )}
-        </Paper>
-      </Box>
-    </Box>
-  );
-};
+            </TableBody>
+          </Table>
+        </TableContainer>
 
-export default AdminMessages;
+        {/* 🧑‍🦽 Patients Table */}
+        <Typography variant="h6" color="primary" fontWeight="bold" mb={1}>
+          Patients
+        </Typography>
+        <TableContainer component={Paper} sx={{ maxHeight: 200, overflow: "auto" }}>
+          <Table stickyHeader>
+            <TableHead>
+              <TableRow>
+                <TableCell>ID</TableCell>
+                <TableCell>Name</TableCell>
+                <TableCell>Contact</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {patients.map((pat, index) => (
+                <TableRow
+                  key={pat._id}
+                  onClick={() => handleRowClick(pat.fullName, pat.contact)}
+                  sx={{ cursor: "pointer", "&:hover": { backgroundColor: "#f9f9f9" } }}
+                >
+                  <TableCell>{index + 1}</TableCell>
+                  <TableCell>{pat.fullName}</TableCell>
+                  <TableCell>{pat.contact}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Container>
+    </div>
+  );
+}
+
+export default MessagingDashboard;
+
