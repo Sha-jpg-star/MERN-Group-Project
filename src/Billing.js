@@ -104,7 +104,14 @@ function Billing() {
   return (
     <div style={{ display: "flex" }}>
       <Sidebar />
-      <Container sx={{ flex: 1, paddingTop: 4 }}>
+      <Container
+        sx={{
+          flex: 1,
+          paddingTop: 4,
+          backgroundColor: "#dafbfd",
+          paddingBottom: 3,
+        }}
+      >
         <Typography variant="h4" gutterBottom>
           Billing Management
         </Typography>
@@ -177,34 +184,35 @@ function Billing() {
               </TableRow>
             </TableHead>
             <TableBody>
-  {billingList.map((bill, index) => (
-    <TableRow key={bill._id}>
-      <TableCell>{index + 1}</TableCell> {/* ID → Serial Number */}
-      <TableCell>{bill.patientName}</TableCell>
-      <TableCell>{bill.service}</TableCell>
-      <TableCell>{bill.amount}</TableCell>
-      <TableCell>{new Date(bill.billingDate).toLocaleDateString()}</TableCell>
-      <TableCell>
-        <Button
-          variant="outlined"
-          color="primary"
-          onClick={() => handleEdit(bill)}
-          sx={{ mr: 1 }}
-        >
-          Edit
-        </Button>
-        <Button
-          variant="outlined"
-          color="secondary"
-          onClick={() => handleDeleteBilling(bill._id)}
-        >
-          Delete
-        </Button>
-      </TableCell>
-    </TableRow>
-  ))}
-</TableBody>
-
+              {billingList.map((bill, index) => (
+                <TableRow key={bill._id}>
+                  <TableCell>{index + 1}</TableCell> {/* ID → Serial Number */}
+                  <TableCell>{bill.patientName}</TableCell>
+                  <TableCell>{bill.service}</TableCell>
+                  <TableCell>{bill.amount}</TableCell>
+                  <TableCell>
+                    {new Date(bill.billingDate).toLocaleDateString()}
+                  </TableCell>
+                  <TableCell>
+                    <Button
+                      variant="outlined"
+                      color="primary"
+                      onClick={() => handleEdit(bill)}
+                      sx={{ mr: 1 }}
+                    >
+                      Edit
+                    </Button>
+                    <Button
+                      variant="outlined"
+                      color="secondary"
+                      onClick={() => handleDeleteBilling(bill._id)}
+                    >
+                      Delete
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
           </Table>
         </TableContainer>
       </Container>
@@ -213,4 +221,3 @@ function Billing() {
 }
 
 export default Billing;
-

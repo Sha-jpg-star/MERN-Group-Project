@@ -1,4 +1,4 @@
- import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import {
   Container,
@@ -84,19 +84,14 @@ function Patients() {
   return (
     <div style={{ display: "flex" }}>
       <Sidebar />
-      <Container sx={{ flex: 1, mt: 4 }}>
-        <Typography variant="h4" gutterBottom fontWeight="bold" color="primary">
+      <Container sx={{ flex: 1, backgroundColor: "#dafbfd", padding: 2 }}>
+        <Typography variant="h4" gutterBottom color="black">
           Patient Management
         </Typography>
 
         {/* Form */}
         <Paper elevation={3} sx={{ p: 3, mb: 4 }}>
-          <Typography
-            variant="h6"
-            gutterBottom
-            fontWeight="bold"
-            color="primary"
-          >
+          <Typography variant="h6" gutterBottom fontWeight="bold" color="black">
             {editId ? "Update Patient" : "Add New Patient"}
           </Typography>
 
@@ -162,13 +157,27 @@ function Patients() {
           <Table>
             <TableHead sx={{ backgroundColor: "#f5f5f5" }}>
               <TableRow>
-                <TableCell><b>ID</b></TableCell>
-                <TableCell><b>Full Name</b></TableCell>
-                <TableCell><b>Age</b></TableCell>
-                <TableCell><b>Gender</b></TableCell>
-                <TableCell><b>Contact</b></TableCell>
-                <TableCell><b>Diagnosis</b></TableCell>
-                <TableCell><b>Actions</b></TableCell>
+                <TableCell>
+                  <b>ID</b>
+                </TableCell>
+                <TableCell>
+                  <b>Full Name</b>
+                </TableCell>
+                <TableCell>
+                  <b>Age</b>
+                </TableCell>
+                <TableCell>
+                  <b>Gender</b>
+                </TableCell>
+                <TableCell>
+                  <b>Contact</b>
+                </TableCell>
+                <TableCell>
+                  <b>Diagnosis</b>
+                </TableCell>
+                <TableCell>
+                  <b>Actions</b>
+                </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -212,5 +221,3 @@ function Patients() {
 }
 
 export default Patients;
-
-

@@ -1,4 +1,4 @@
-  import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import {
   Container,
@@ -64,7 +64,7 @@ function Ward() {
   return (
     <Box display="flex">
       <Sidebar />
-      <Container sx={{ mt: 4 }}>
+      <Container sx={{ pb: 4, backgroundColor: "#dafbfd", pt: 2 }}>
         <Typography variant="h4" gutterBottom>
           Ward Management
         </Typography>
@@ -103,7 +103,12 @@ function Ward() {
             margin="normal"
             required
           />
-          <Button type="submit" variant="contained" color="primary" sx={{ mt: 2 }}>
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            sx={{ mt: 2 }}
+          >
             Add Ward
           </Button>
         </form>
@@ -137,5 +142,3 @@ function Ward() {
 }
 
 export default Ward;
-
-
