@@ -2,8 +2,7 @@
 
 const express = require("express");
 const router = express.Router();
-const Doctor = require("../Model/Doctor"); 
-
+const Doctor = require("../Model/Doctor");
 
 // GET all doctors
 router.get("/", async (req, res) => {
@@ -33,3 +32,15 @@ router.delete("/:id", async (req, res) => {
 });
 
 module.exports = router;
+
+// GET Doctor  count
+router.get("/count", async (req, res) => {
+  try {
+    const count = await Doctor.countDocuments();
+    res.json({ count });
+  } catch (err) {
+    res
+      .status(500)
+      .json({ message: "Error fetching doctor count", error: err });
+  }
+});
