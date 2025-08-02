@@ -128,9 +128,7 @@ function Doctors() {
   return (
     <div style={{ display: "flex" }}>
       <Sidebar />
-      <Container
-        sx={{ flex: 1, paddingTop: 4, backgroundColor: "rgb(255, 255, 255)" }}
-      >
+      <Container sx={{ flex: 1, paddingTop: 4, backgroundColor: "#dafbfd" }}>
         <Typography variant="h4" gutterBottom>
           Doctors Management
         </Typography>
@@ -236,7 +234,7 @@ function Doctors() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {doctorList.map((doctor,index) => (
+              {doctorList.map((doctor, index) => (
                 <TableRow key={doctor._id}>
                   <TableCell>{index + 1}</TableCell>
                   <TableCell>{doctor.DoctorName}</TableCell>

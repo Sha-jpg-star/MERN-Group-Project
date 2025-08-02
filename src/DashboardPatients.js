@@ -88,7 +88,7 @@ const DashboardPatients = () => {
       {/* Main Content */}
       <Box
         component="main"
-        sx={{ flexGrow: 1, p: 3, bgcolor: "#f4f7fb", minHeight: "100vh" }}
+        sx={{ flexGrow: 1, p: 3, bgcolor: "#dafbfd", minHeight: "100vh" }}
       >
         <Typography variant="h4" fontWeight="bold" gutterBottom>
           Welcome, Nimal Bandara
