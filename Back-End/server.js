@@ -9,7 +9,6 @@ const patientsRoutes = require("./routes/Patients");
 const billingRoutes = require("./routes/Billing");
 const wardRoutes = require("./routes/Ward");
 
-
 const app = express();
 const PORT = process.env.PORT || 5000;
 

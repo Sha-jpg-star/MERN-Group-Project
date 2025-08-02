@@ -18,9 +18,13 @@ router.post("/", async (req, res) => {
 // Update appointment by id
 router.put("/:id", async (req, res) => {
   try {
-    const updated = await Appointment.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-    });
+    const updated = await Appointment.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      {
+        new: true,
+      }
+    );
     res.json(updated);
   } catch (error) {
     res.status(500).json({ message: "Error updating appointment" });
@@ -47,6 +51,16 @@ router.get("/doctor/:doctorName", async (req, res) => {
   }
 });
 
-
-
 module.exports = router;
+
+// GET Appointment count
+router.get("/count", async (req, res) => {
+  try {
+    const count = await Appointment.countDocuments();
+    res.json({ count });
+  } catch (err) {
+    res
+      .status(500)
+      .json({ message: "Error fetching patient count", error: err });
+  }
+});
