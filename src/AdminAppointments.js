@@ -121,7 +121,14 @@ const BookAppointments = () => {
   return (
     <div style={{ display: "flex" }}>
       <Sidebar />
-      <Container sx={{ flex: 1, paddingTop: 4, backgroundColor: "#f1fff5" }}>
+      <Container
+        sx={{
+          flex: 1,
+          paddingTop: 4,
+          backgroundColor: "#f1fff5",
+          paddingBottom: 4,
+        }}
+      >
         <Typography variant="h4" gutterBottom>
           {editMode ? "Update Appointment" : "Book Appointment"}
         </Typography>
