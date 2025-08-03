@@ -1,185 +1,91 @@
 import { useState, useEffect } from "react";
-
-import {
-  Box,
-  Typography,
-  Grid,
-  Card,
-  CardContent,
-  Avatar,
-  List,
-  ListItem,
-  ListItemText,
-} from "@mui/material";
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  Tooltip,
-  ResponsiveContainer,
-} from "recharts";
-import axios from "axios";
-
+import {Box,Typography,Grid,Card,CardContent,Avatar,Table,TableHead,TableRow,TableCell,TableBody,TableContainer,Paper} from "@mui/material";
+import {LineChart,Line,XAxis,YAxis,Tooltip,ResponsiveContainer} from "recharts";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import PeopleIcon from "@mui/icons-material/People";
 import LocalHospitalIcon from "@mui/icons-material/LocalHospital";
 import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
 import Sidebar from "./Sidebar";
+import axios from "axios";
 
-const appointments = [
-  { name: "Niluka Dasuni", time: "10:00 AM", status: "Accepted" },
-  { name: "Shalini Himanjana", time: "11:30 AM", status: "Pending" },
-  { name: "Tharukshi Hansamali", time: "1:00 PM", status: "Rejected" },
-];
+function MessagingDashboard() {
+    const [patients,setPatients] = useState([]);
+    const [billing,setBilling] = useState([]);
+    const [patientData,setPatientData] = useState([]);
+    const [doctorCount,setDoctorCount] = useState(0);
 
-const recentPatients = [
-  {
-    name: "G.K.Fernando",
-    gender: "Male",
-    weight: "75kg",
-    status: "Outpatient",
-  },
-  {
-    name: "U.L.Chandralatha",
-    gender: "Female",
-    weight: "68kg",
-    status: "Inpatient",
-  },
-];
+  useEffect(() => {
+    fetchData();
+  }, []);
 
-const Dashboard = () => {
-  const [patientCount, setPatientCount] = useState(0);
-
-  const [patientData, setPatientData] = useState([]);
-
-  const [DoctorCount, setDoctorCount] = useState(0);
-
-  const [DoctorData, setDoctorData] = useState([]);
-
-  const [AppointmentCount, setAppointmentCount] = useState(0);
-
-  const [AppointmentData, setAppointmentData] = useState([]);
-
-  /*useEffect(() => {
-    fetch("http://localhost:5000/api/stats/monthly-stats")
-      .then((res) => res.json())
-      .then((data) => {
-        // Map your API data to the shape recharts expects
-        const formatted = data.map((item) => ({
-          name: item.month,
-          Registered: item.patients,
-          Income: item.income,
-        }));
-        setPatientData(formatted);
+  const fetchData = () => {
+    Promise.all([
+      axios.get("http://localhost:5000/api/patients"),
+      axios.get("http://localhost:5000/api/billing"),
+      axios.get("http://localhost:5000/api/doctors"),
+      
+    ])
+      .then(([patientsRes, billingRes,res]) => {
+        setPatients(patientsRes.data);
+        setBilling(billingRes.data);
+        setDoctorCount(res.data.length);
+        
+        const groupedData = groupByMonth(patientsRes.data, billingRes.data);
+        setPatientData(groupedData);
       })
-      .catch((err) => {
-        console.error("Error fetching patient stats:", err);
-        // fallback data or empty array
-        setPatientData([]);
-      });
-  }, []);*/
+      .catch((err) => console.error(err));
+  };
 
-  useEffect(() => {
-    // Count
-    axios
-      .get("http://localhost:5000/api/patients/count")
-      .then((res) => setPatientCount(res.data.count))
-      .catch((err) => console.error("Failed to fetch patient count:", err));
+  const groupByMonth = (patients, billing) => {
+    const months = [
+      "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+      "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
+    ];
 
-    // Full Data (optional)
-    axios
-      .get("http://localhost:5000/api/patients")
-      .then((res) => setPatientData(res.data))
-      .catch((err) => console.error("Failed to fetch patient data:", err));
-  }, []);
+    // Initialize array for 12 months with zero values
+    const monthlyData = Array(12).fill(null).map((_, i) => ({
+      name: months[i],
+      Registered: 0,
+      Income: 0,
+    }));
 
-  useEffect(() => {
-    // Count
-    axios
-      .get("http://localhost:5000/api/Doctors/count")
-      .then((res) => setDoctorCount(res.data.count))
-      .catch((err) => console.error("Failed to fetch patient count:", err));
+    // Count registrations per month
+    patients.forEach((patient) => {
+      if (!patient.createdAt) return;
+      const monthIndex = new Date(patient.createdAt).getMonth();
+      monthlyData[monthIndex].Registered += 1;
+    });
 
-    // Full Data (optional)
-    axios
-      .get("http://localhost:5000/api/Doctors")
-      .then((res) => setDoctorData(res.data))
-      .catch((err) => console.error("Failed to fetch patient data:", err));
-  }, []);
+    // Sum billing income per month
+    billing.forEach((bill) => {
+      if (!bill.billingDate || !bill.amount) return;
+      const monthIndex = new Date(bill.billingDate).getMonth();
+      monthlyData[monthIndex].Income += Number(bill.amount);
+    });
+    
 
-  useEffect(() => {
-    // Count
-    axios
-      .get("http://localhost:5000/api/Appointment/count")
-      .then((res) => setAppointmentCount(res.data.count))
-      .catch((err) => console.error("Failed to fetch patient count:", err));
+    return monthlyData;
+  };
 
-    // Full Data (optional)
-    axios
-      .get("http://localhost:5000/api/Appointment")
-      .then((res) => setAppointmentData(res.data))
-      .catch((err) => console.error("Failed to fetch patient data:", err));
-  }, []);
 
   return (
     <Box sx={{ display: "flex" }}>
       <Sidebar />
-
       <Box sx={{ flexGrow: 1, p: 3, backgroundColor: "rgb(218, 251, 253)" }}>
-        <Typography
-          variant="h4"
-          sx={{ fontWeight: "bold", marginBottom: "20px" }}
-        >
+        <Typography variant="h4" sx={{ fontWeight: "bold", marginBottom: "20px" }}>
           Welcome To Medicare....
         </Typography>
 
         <Grid container spacing={3}>
           {[
-            {
-              title: " Patients",
-              value: patientCount,
-              icon: <CalendarTodayIcon />,
-              color: "#007bff",
-            },
-            {
-              title: "Doctors",
-              value: DoctorCount,
-              icon: <PeopleIcon />,
-              color: "#28a745",
-            },
-            {
-              title: "Appointment",
-              value: AppointmentCount,
-              icon: <LocalHospitalIcon />,
-              color: "#dc3545",
-            },
-            {
-              title: "Income",
-              value: "Rs.5728",
-              icon: <AccountBalanceWalletIcon />,
-              color: "#ffc107",
-            },
+            { title: " Patients", value: patients.length, icon: <CalendarTodayIcon />, color: "#007bff" },
+            { title: "Doctors", value: doctorCount, icon: <PeopleIcon />, color: "#28a745" },
+            { title: "Appointment", value: 9, icon: <LocalHospitalIcon />, color: "#dc3545" },
+            { title: "Income", value: `Rs.${billing.reduce((sum, b) => sum + Number(b.amount), 0)}`, icon: <AccountBalanceWalletIcon />, color: "#ffc107" },
           ].map((stat, index) => (
             <Grid item xs={12} sm={6} md={3} key={index}>
-              <Card
-                sx={{
-                  display: "flex",
-                  alignItems: "center",
-                  padding: "15px",
-                  backgroundColor: stat.color,
-                  color: "#fff",
-                }}
-              >
-                <Avatar
-                  sx={{
-                    backgroundColor: "#fff",
-                    color: stat.color,
-                    marginRight: "10px",
-                  }}
-                >
-                  {stat.icon}
-                </Avatar>
+              <Card sx={{ display: "flex", alignItems: "center", padding: "15px", backgroundColor: stat.color, color: "#fff" }}>
+                <Avatar sx={{ backgroundColor: "#fff", color: stat.color, marginRight: "10px" }}>{stat.icon}</Avatar>
                 <CardContent>
                   <Typography variant="h6">{stat.title}</Typography>
                   <Typography variant="h5">{stat.value}</Typography>
@@ -195,76 +101,90 @@ const Dashboard = () => {
             padding: "20px",
             backgroundColor: "#fff",
             borderRadius: "10px",
-            boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+            boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)"
           }}
         >
-          <Typography variant="h6">Patient Status</Typography>
+          <Typography variant="h6">Monthly Patients & Income Status</Typography>
           <ResponsiveContainer width="100%" height={250}>
-            <LineChart
-              data={
-                patientData.length
-                  ? patientData
-                  : [
-                      { name: "Jan", Registered: 150, Income: 20 },
-                      { name: "Feb", Registered: 200, Income: 30 },
-                      { name: "March", Registered: 50, Income: 40 },
-                      { name: "April", Registered: 100, Income: 50 },
-                      { name: "May", Registered: 150, Income: 20 },
-                      { name: "June", Registered: 200, Income: 20 },
-                      { name: "July", Registered: 150, Income: 70 },
-                      { name: "Aug", Registered: 50, Income: 20 },
-                      { name: "Sep", Registered: 40, Income: 20 },
-                      { name: "Oct", Registered: 30, Income: 20 },
-                      { name: "Nov", Registered: 150, Income: 80 },
-                      { name: "Dec", Registered: 120, Income: 20 },
-                      // fallback hardcoded data in case API call fails or is empty
-                    ]
-              }
-            >
+            <LineChart data={patientData}>
               <XAxis dataKey="name" />
-              <YAxis />
+              <YAxis domain={[0, 'dataMax + 5']} />
               <Tooltip />
-              <Line type="monotone" dataKey="Registered" stroke="#007bff" />
-              <Line type="monotone" dataKey="Income" stroke="#dc3545" />
+              <Line
+                type="monotone"
+                dataKey="Registered"
+                stroke="#007bff"
+                strokeWidth={3}
+                dot={{ r: 4 }}
+                activeDot={{ r: 6 }}
+              />
+              <Line
+                type="monotone"
+                dataKey="Income"
+                stroke="#dc3545"
+                strokeWidth={3}
+                dot={{ r: 4 }}
+                activeDot={{ r: 6 }}
+              />
             </LineChart>
           </ResponsiveContainer>
         </Box>
 
-        <Grid container spacing={3} sx={{ marginTop: "20px" }}>
-          <Grid item xs={12} md={6}>
-            <Card sx={{ padding: "15px" }}>
-              <Typography variant="h6">Appointment Requests</Typography>
-              <List>
-                {appointments.map((appointment, index) => (
-                  <ListItem key={index}>
-                    <ListItemText
-                      primary={appointment.name}
-                      secondary={`${appointment.time} - ${appointment.status}`}
-                    />
-                  </ListItem>
-                ))}
-              </List>
-            </Card>
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <Card sx={{ padding: "15px" }}>
-              <Typography variant="h6">Recent Patients</Typography>
-              <List>
-                {recentPatients.map((patient, index) => (
-                  <ListItem key={index}>
-                    <ListItemText
-                      primary={patient.name}
-                      secondary={`${patient.gender} - ${patient.weight} - ${patient.status}`}
-                    />
-                  </ListItem>
-                ))}
-              </List>
-            </Card>
-          </Grid>
-        </Grid>
+        <Typography variant="h6" color="primary" fontWeight="bold" mb={1} mt={4}>
+          Monthly Income Details
+        </Typography>
+        <TableContainer component={Paper} sx={{ maxHeight: 200, overflow: "auto", mb: 4 }}>
+          <Table stickyHeader>
+            <TableHead>
+              <TableRow >
+ 
+                <TableCell>ID</TableCell>
+                <TableCell>Patient Name</TableCell>
+                <TableCell>Service</TableCell>
+                <TableCell>Amount</TableCell>
+                <TableCell>Billing Date</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {billing.map((bill, index) => (
+                <TableRow key={bill._id || index}>
+                  <TableCell>{index + 1}</TableCell>
+                  <TableCell>{bill.patientName || "N/A"}</TableCell>
+                  <TableCell>{bill.service || "N/A"}</TableCell>
+                  <TableCell>{bill.amount}</TableCell>
+                  <TableCell>{new Date(bill.billingDate).toLocaleDateString()}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+
+        <Typography variant="h6" color="primary" fontWeight="bold" mb={1}>
+          Patients
+        </Typography>
+        <TableContainer component={Paper} sx={{ maxHeight: 200, overflow: "auto" }}>
+          <Table stickyHeader>
+            <TableHead>
+              <TableRow>
+                <TableCell>ID</TableCell>
+                <TableCell>Name</TableCell>
+                <TableCell>Contact</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {patients.map((pat, index) => (
+                <TableRow key={pat._id}>
+                  <TableCell>{index + 1}</TableCell>
+                  <TableCell>{pat.fullName}</TableCell>
+                  <TableCell>{pat.contact}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
       </Box>
     </Box>
   );
-};
+}
 
-export default Dashboard;
+export default MessagingDashboard;
