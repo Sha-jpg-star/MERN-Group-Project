@@ -33,6 +33,11 @@ app.use("/api/patients", patientsRoutes);
 app.use("/api/billing", billingRoutes); // 🔁 fixed `/Billing` to `/billing` (lowercase route)
 app.use("/api/ward", wardRoutes);
 
+app.use(cors());
+app.use(express.json());
+const adminProfileRoutes = require("./routes/AdminProfile");
+app.use("/api/adminprofile", adminProfileRoutes);
+
 // Default route
 app.get("/", (req, res) => {
   res.send("Medicare API is running...");
