@@ -54,3 +54,14 @@ router.delete("/:id", async (req, res) => {
 });
 
 module.exports = router;
+
+// GET total income
+router.get("/income/total", async (req, res) => {
+  try {
+    const allBills = await Billing.find();
+    const totalIncome = allBills.reduce((acc, bill) => acc + bill.amount, 0);
+    res.json({ totalIncome });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
