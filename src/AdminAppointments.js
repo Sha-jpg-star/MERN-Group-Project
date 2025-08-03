@@ -58,7 +58,10 @@ const BookAppointments = () => {
         setEditMode(false);
         setSuccess(true);
       } else {
-        const res = await axios.post("http://localhost:5000/api/appointments", formData);
+        const res = await axios.post(
+          "http://localhost:5000/api/appointments",
+          formData
+        );
         setAppointmentId(res.data._id);
         alert("Appointment booked successfully!");
         setSuccess(true);
@@ -94,7 +97,9 @@ const BookAppointments = () => {
 
   const handleDelete = async () => {
     try {
-      await axios.delete(`http://localhost:5000/api/appointments/${appointmentId}`);
+      await axios.delete(
+        `http://localhost:5000/api/appointments/${appointmentId}`
+      );
       alert("Appointment deleted successfully!");
       setFormData({
         patientName: "",
@@ -209,7 +214,12 @@ const BookAppointments = () => {
               </Grid>
               <Grid item xs={12}>
                 {!success ? (
-                  <Button variant="contained" color="primary" type="submit" fullWidth>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    type="submit"
+                    fullWidth
+                  >
                     {editMode ? "Save Changes" : "Book Now"}
                   </Button>
                 ) : (
@@ -230,17 +240,35 @@ const BookAppointments = () => {
         <Dialog open={openView} onClose={handleViewClose} fullWidth>
           <DialogTitle>Appointment Details</DialogTitle>
           <DialogContent>
-            <Typography><strong>Name:</strong> {formData.patientName}</Typography>
-            <Typography><strong>Email:</strong> {formData.email}</Typography>
-            <Typography><strong>Phone:</strong> {formData.phone}</Typography>
-            <Typography><strong>Doctor:</strong> {formData.doctor}</Typography>
-            <Typography><strong>Date:</strong> {formData.date}</Typography>
-            <Typography><strong>Time:</strong> {formData.time}</Typography>
-            <Typography><strong>Symptoms:</strong> {formData.symptoms}</Typography>
+            <Typography>
+              <strong>Name:</strong> {formData.patientName}
+            </Typography>
+            <Typography>
+              <strong>Email:</strong> {formData.email}
+            </Typography>
+            <Typography>
+              <strong>Phone:</strong> {formData.phone}
+            </Typography>
+            <Typography>
+              <strong>Doctor:</strong> {formData.doctor}
+            </Typography>
+            <Typography>
+              <strong>Date:</strong> {formData.date}
+            </Typography>
+            <Typography>
+              <strong>Time:</strong> {formData.time}
+            </Typography>
+            <Typography>
+              <strong>Symptoms:</strong> {formData.symptoms}
+            </Typography>
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleEdit} color="primary">Edit</Button>
-            <Button onClick={handleDelete} color="error">Delete</Button>
+            <Button onClick={handleEdit} color="primary">
+              Edit
+            </Button>
+            <Button onClick={handleDelete} color="error">
+              Delete
+            </Button>
             <Button onClick={handleViewClose}>Close</Button>
           </DialogActions>
         </Dialog>
