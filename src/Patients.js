@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import {
   Container,
@@ -13,210 +13,151 @@ import {
   TableRow,
   Paper,
   Box,
-  IconButton,
+
 } from "@mui/material";
-import { Edit, Delete } from "@mui/icons-material";
+
 import Sidebar from "./Sidebar";
 
 function Patients() {
   const [patients, setPatients] = useState([]);
-  const [form, setForm] = useState({
-    fullName: "",
-    age: "",
-    gender: "",
-    contact: "",
-    diagnosis: "",
-  });
-  const [editId, setEditId] = useState(null);
+  const [name, setName] = useState("");
+  const [age, setAge] = useState("");
+  const [gender, setGender] = useState("");
+  const [contact, setContact] = useState("");
+  const [diagnosis, setDiagnosis] = useState("");
 
+  // Fetch existing patients
   useEffect(() => {
     axios
       .get("http://localhost:5000/api/patients")
-      .then((res) => setPatients(res.data))
-      .catch((err) => console.error(err));
+      .then((res) => {
+        setPatients(res.data);
+      })
+      .catch((err) => {
+        console.error("Error fetching patients:", err);
+      });
   }, []);
 
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
+  // Submit form
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-  const resetForm = () => {
-    setForm({
-      fullName: "",
-      age: "",
-      gender: "",
-      contact: "",
-      diagnosis: "",
-    });
-    setEditId(null);
-  };
+    const newPatient = {
+      name,
+      age: Number(age),
+      gender,
+      contact,
+      diagnosis,
+    };
 
-  const handleSubmit = () => {
-    const url = editId
-      ? `http://localhost:5000/api/patients/${editId}`
-      : "http://localhost:5000/api/patients";
-
-    const method = editId ? axios.put : axios.post;
-
-    method(url, form)
-      .then((res) => {
-        const updated = editId
-          ? patients.map((p) => (p._id === editId ? res.data : p))
-          : [...patients, res.data];
-        setPatients(updated);
-        resetForm();
-      })
-      .catch((err) => console.error(err));
-  };
-
-  const handleEdit = (patient) => {
-    setEditId(patient._id);
-    setForm(patient);
-  };
-
-  const handleDelete = (id) => {
     axios
-      .delete(`http://localhost:5000/api/patients/${id}`)
-      .then(() => setPatients(patients.filter((p) => p._id !== id)))
-      .catch((err) => console.error(err));
+      .post("http://localhost:5000/api/patients", newPatient)
+      .then((res) => {
+        console.log("Patient added:", res.data);
+        setPatients([...patients, res.data]);
+        setName("");
+        setAge("");
+        setGender("");
+        setContact("");
+        setDiagnosis("");
+      })
+      .catch((err) => {
+        console.error("Error adding patient:", err.response?.data || err.message);
+      });
   };
 
   return (
-    <div style={{ display: "flex" }}>
+    <Box display="flex">
       <Sidebar />
-      <Container sx={{ flex: 1, backgroundColor: "#dafbfd", padding: 2 }}>
-        <Typography variant="h4" gutterBottom color="black">
+      <Container sx={{ pb: 4, backgroundColor: "#fff3e0", pt: 2 }}>
+        <Typography variant="h4" gutterBottom>
           Patient Management
         </Typography>
-
-        {/* Form */}
-        <Paper elevation={3} sx={{ p: 3, mb: 4 }}>
-          <Typography variant="h6" gutterBottom fontWeight="bold" color="black">
-            {editId ? "Update Patient" : "Add New Patient"}
-          </Typography>
-
+        <form onSubmit={handleSubmit}>
           <TextField
+            label="Patient Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
             fullWidth
-            label="Full Name"
-            name="fullName"
-            value={form.fullName}
-            onChange={handleChange}
+
             margin="normal"
+            required
           />
           <TextField
-            fullWidth
+
             label="Age"
-            name="age"
-            value={form.age}
-            onChange={handleChange}
+            type="number"
+            value={age}
+            onChange={(e) => setAge(e.target.value)}
+            fullWidth
             margin="normal"
+            required
           />
           <TextField
-            fullWidth
+
             label="Gender"
-            name="gender"
-            value={form.gender}
-            onChange={handleChange}
+            value={gender}
+            onChange={(e) => setGender(e.target.value)}
+            fullWidth
             margin="normal"
+            required
           />
           <TextField
+            label="Contact Number"
+            value={contact}
+            onChange={(e) => setContact(e.target.value)}
             fullWidth
-            label="Contact"
-            name="contact"
-            value={form.contact}
-            onChange={handleChange}
+
             margin="normal"
+            required
           />
           <TextField
-            fullWidth
+
             label="Diagnosis"
-            name="diagnosis"
-            value={form.diagnosis}
-            onChange={handleChange}
+            value={diagnosis}
+            onChange={(e) => setDiagnosis(e.target.value)}
+            fullWidth
             margin="normal"
+            required
           />
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            sx={{ mt: 2 }}
+          >
+            Add Patient
+          </Button>
+        </form>
 
-          <Box sx={{ display: "flex", gap: 2, mt: 2 }}>
-            <Button
-              variant="contained"
-              color={editId ? "secondary" : "primary"}
-              onClick={handleSubmit}
-            >
-              {editId ? "Update Patient" : "Add Patient"}
-            </Button>
-            {editId && (
-              <Button variant="outlined" onClick={resetForm}>
-                Cancel
-              </Button>
-            )}
-          </Box>
-        </Paper>
-
-        {/* Table */}
+        {/* Display Patients */}
         <TableContainer component={Paper} sx={{ mt: 4 }}>
           <Table>
-            <TableHead sx={{ backgroundColor: "#f5f5f5" }}>
+            <TableHead>
               <TableRow>
-                <TableCell>
-                  <b>ID</b>
-                </TableCell>
-                <TableCell>
-                  <b>Full Name</b>
-                </TableCell>
-                <TableCell>
-                  <b>Age</b>
-                </TableCell>
-                <TableCell>
-                  <b>Gender</b>
-                </TableCell>
-                <TableCell>
-                  <b>Contact</b>
-                </TableCell>
-                <TableCell>
-                  <b>Diagnosis</b>
-                </TableCell>
-                <TableCell>
-                  <b>Actions</b>
-                </TableCell>
+                <TableCell>Name</TableCell>
+                <TableCell>Age</TableCell>
+                <TableCell>Gender</TableCell>
+                <TableCell>Contact</TableCell>
+                <TableCell>Diagnosis</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {patients.map((patient, index) => (
-                <TableRow
-                  key={patient._id}
-                  sx={{
-                    backgroundColor: index % 2 === 0 ? "#fafafa" : "white",
-                    transition: "background-color 0.3s",
-                    "&:hover": { backgroundColor: "#f0f0f0" },
-                  }}
-                >
-                  <TableCell>{index + 1}</TableCell>
-                  <TableCell>{patient.fullName}</TableCell>
+                <TableRow key={index}>
+                  <TableCell>{patient.name}</TableCell>
                   <TableCell>{patient.age}</TableCell>
                   <TableCell>{patient.gender}</TableCell>
                   <TableCell>{patient.contact}</TableCell>
                   <TableCell>{patient.diagnosis}</TableCell>
-                  <TableCell>
-                    <IconButton
-                      color="primary"
-                      onClick={() => handleEdit(patient)}
-                    >
-                      <Edit />
-                    </IconButton>
-                    <IconButton
-                      color="error"
-                      onClick={() => handleDelete(patient._id)}
-                    >
-                      <Delete />
-                    </IconButton>
-                  </TableCell>
+
                 </TableRow>
               ))}
             </TableBody>
           </Table>
         </TableContainer>
       </Container>
-    </div>
+    </Box>
   );
 }
 
