@@ -24,6 +24,7 @@ import AdminAppointments from "./AdminAppointments";
 import Patients from "./Patients";
 import Billing from "./Billing";
 import Ward from "./Ward";
+import Pharmacy from "./Pharmacy";
 
 function App() {
   return (
@@ -60,6 +61,7 @@ function App() {
         <Route path="/Patients" element={<Patients />} />
         <Route path="/Billing" element={<Billing />} />
         <Route path="/Ward" element={<Ward />} />
+        <Route path="/Pharmacy" element={<Pharmacy />} />
       </Routes>
     </Router>
   );
