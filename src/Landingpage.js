@@ -25,13 +25,7 @@ const LandingPage = () => {
           >
             MediCare
           </Typography>
-          <Button
-            sx={{ color: "white", backgroundColor: "navy" }}
-            LinkComponent={Link}
-            to="/Login"
-          >
-            Log In
-          </Button>
+          
         </Toolbar>
       </AppBar>
 
@@ -62,17 +56,13 @@ const LandingPage = () => {
               professionals ensures that you receive the best medical care,
               tailored to your needs. Join us in creating a healthier tomorrow!
             </Typography>
-            <Button
-              variant="contained"
-              component={Link}
-              to="/loginpatients"
-              sx={{ mr: 2, backgroundColor: "blue" }}
-            >
-              Make An Appointment
-            </Button>
-            <Button variant="outlined" component={Link} to="/loginDoctors">
-              Check Appointment
-            </Button>
+           <Button
+            sx={{ color: "white", backgroundColor: "blue" }}
+            LinkComponent={Link}
+            to="/Login"
+          >
+            Log In
+          </Button> 
           </Box>
           <img
             src="landDoctor.jpg"
