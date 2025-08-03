@@ -61,7 +61,7 @@ const Dashboard = () => {
 
   const [AppointmentData, setAppointmentData] = useState([]);
 
-  /*useEffect(() => {
+  useEffect(() => {
     fetch("http://localhost:5000/api/stats/monthly-stats")
       .then((res) => res.json())
       .then((data) => {
@@ -78,7 +78,7 @@ const Dashboard = () => {
         // fallback data or empty array
         setPatientData([]);
       });
-  }, []);*/
+  }, []);
 
   useEffect(() => {
     // Count
@@ -111,15 +111,24 @@ const Dashboard = () => {
   useEffect(() => {
     // Count
     axios
-      .get("http://localhost:5000/api/Appointment/count")
+      .get("http://localhost:5000/api/appointments/count")
       .then((res) => setAppointmentCount(res.data.count))
       .catch((err) => console.error("Failed to fetch patient count:", err));
 
     // Full Data (optional)
     axios
-      .get("http://localhost:5000/api/Appointment")
+      .get("http://localhost:5000/api/appointments")
       .then((res) => setAppointmentData(res.data))
       .catch((err) => console.error("Failed to fetch patient data:", err));
+  }, []);
+
+  const [totalIncome, setTotalIncome] = useState(0);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/api/billing/income/total")
+      .then((res) => setTotalIncome(res.data.totalIncome))
+      .catch((err) => console.error("Failed to fetch total income:", err));
   }, []);
 
   return (
@@ -156,7 +165,7 @@ const Dashboard = () => {
             },
             {
               title: "Income",
-              value: "Rs.5728",
+              value: `Rs.${totalIncome}`,
               icon: <AccountBalanceWalletIcon />,
               color: "#ffc107",
             },
@@ -205,18 +214,18 @@ const Dashboard = () => {
                 patientData.length
                   ? patientData
                   : [
-                      { name: "Jan", Registered: 150, Income: 20 },
-                      { name: "Feb", Registered: 200, Income: 30 },
-                      { name: "March", Registered: 50, Income: 40 },
-                      { name: "April", Registered: 100, Income: 50 },
-                      { name: "May", Registered: 150, Income: 20 },
-                      { name: "June", Registered: 200, Income: 20 },
-                      { name: "July", Registered: 150, Income: 70 },
-                      { name: "Aug", Registered: 50, Income: 20 },
-                      { name: "Sep", Registered: 40, Income: 20 },
-                      { name: "Oct", Registered: 30, Income: 20 },
-                      { name: "Nov", Registered: 150, Income: 80 },
-                      { name: "Dec", Registered: 120, Income: 20 },
+                      { name: "Jan", Registered: 320, Income: 200 },
+                      { name: "Feb", Registered: 200, Income: 300 },
+                      { name: "March", Registered: 50, Income: 400 },
+                      { name: "April", Registered: 100, Income: 505 },
+                      { name: "May", Registered: 150, Income: 200 },
+                      { name: "June", Registered: 20, Income: 250 },
+                      { name: "July", Registered: 15, Income: 700 },
+                      { name: "Aug", Registered: 55, Income: 500 },
+                      { name: "Sep", Registered: 29, Income: 249 },
+                      { name: "Oct", Registered: 30, Income: 200 },
+                      { name: "Nov", Registered: 150, Income: 800 },
+                      { name: "Dec", Registered: 120, Income: 200 },
                       // fallback hardcoded data in case API call fails or is empty
                     ]
               }
