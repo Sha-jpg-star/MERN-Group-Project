@@ -44,8 +44,10 @@ const AdminProfile = () => {
       <Sidebar />
       <Box
         sx={{
-          maxWidth: 600,
-          p: 3,
+          maxWidth: 900,
+          paddingTop: 2,
+          ml: 2,
+          p: 2,
           backgroundColor: "#dafbfd",
           borderRadius: 2,
         }}
